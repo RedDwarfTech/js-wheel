@@ -1,6 +1,6 @@
 
 const ResponseHandler = {
-    responseSuccess(response:any):boolean {
+    responseSuccess:(response:any) => {
         if(response.statusCode === "200" && response.resultCode === "200"){
             return true;
         }
