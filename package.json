@@ -12,8 +12,9 @@
     "start": "npm-run-all clean build --parallel watch:build watch:server --print-label"
   },
   "dependencies": {
+    "@types/chrome": "^0.0.178",
     "dayjs": "^1.10.7",
-    "@types/chrome": "^0.0.178"  
+    "npm": "^8.4.1"
   },
   "repository": {
     "type": "git",
