@@ -1,1 +1,6 @@
-export declare function demo(): number;
+declare const _default: {
+    ResponseHandler: {
+        responseSuccess: (response: any) => boolean;
+    };
+};
+export default _default;

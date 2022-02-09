@@ -1,1 +1,4 @@
-export declare function responseSuccess(response: any): boolean;
+export declare const ResponseHandler: {
+    responseSuccess: (response: any) => boolean;
+};
+export default ResponseHandler;
