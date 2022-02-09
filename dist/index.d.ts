@@ -1,3 +1,1 @@
-export * from "./src/net/rest/ResponseHandler";
-export default class Index {
-}
+export { responseSuccess } from "./src/net/rest/ResponseHandler";
