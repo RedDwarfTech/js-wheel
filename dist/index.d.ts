@@ -1,1 +1,1 @@
-export { responseSuccess } from "./src/net/rest/ResponseHandler";
+export declare function responseSuccess(response: any): boolean;
