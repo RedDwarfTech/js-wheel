@@ -1,14 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const BaseMethods = {
+var BaseMethods = {
     /**
      * 获取数据类型
      * @param params
      * @returns 'String','Number'...
      */
-    getTypeOf: (params) => {
-        let type = Object.prototype.toString.call(params);
-        let typeResult = type.match(/\[\w+\W(\w+)\]$/);
+    getTypeOf: function (params) {
+        var type = Object.prototype.toString.call(params);
+        var typeResult = type.match(/\[\w+\W(\w+)\]$/);
         if (typeResult) {
             return typeResult[1];
         }
@@ -20,7 +18,7 @@ const BaseMethods = {
      * @param AnyObject
      * @returns
      */
-    isNull: (value) => {
+    isNull: function (value) {
         // any falsy value: https://developer.mozilla.org/en-US/docs/Glossary/Falsy
         if (!value) {
             return true;
@@ -45,4 +43,4 @@ const BaseMethods = {
     unique: function (params) {
     }
 };
-exports.default = BaseMethods;
+export default BaseMethods;
