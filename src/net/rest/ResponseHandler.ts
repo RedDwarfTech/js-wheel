@@ -1,5 +1,5 @@
 
-const ResponseHandler = {
+export const ResponseHandler = {
     responseSuccess:(response:any) => {
         if(response.statusCode === "200" && response.resultCode === "200"){
             return true;
@@ -7,5 +7,3 @@ const ResponseHandler = {
         return false;
     }
 }
-
-export default ResponseHandler

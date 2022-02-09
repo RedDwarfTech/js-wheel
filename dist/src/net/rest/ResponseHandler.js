@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const ResponseHandler = {
+exports.ResponseHandler = void 0;
+exports.ResponseHandler = {
     responseSuccess: (response) => {
         if (response.statusCode === "200" && response.resultCode === "200") {
             return true;
@@ -8,4 +9,3 @@ const ResponseHandler = {
         return false;
     }
 };
-exports.default = ResponseHandler;
