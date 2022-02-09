@@ -1,7 +1,6 @@
-import  isNull  from "../../utils/data/checker.js";
 
-
-export function handleAccessTokenExpire(e:any, retryTimes:Number, params:any, callback:any) {
+export const AuthHandler = {
+    handleAccessTokenExpire:(retryTimes:Number, params:any) => {
         chrome.storage.local.get('refreshToken', (result:any) => {
             const refreshToken = result.refreshToken;
             const urlParams = {
@@ -11,9 +10,8 @@ export function handleAccessTokenExpire(e:any, retryTimes:Number, params:any, ca
             };
             //refreshAccessToken(urlParams, e, retryTimes, params, callback);
         });
-    }
-
-
+    },
+}
 
 
 

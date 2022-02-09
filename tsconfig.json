@@ -15,7 +15,12 @@
 
     /* Type Checking */
     "strict": true,                                      /* Enable all strict type-checking options. */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true,
+    "baseUrl": "src",
+    "paths": {
+      "@net/*":["net/*"],
+      "@auth/*":["auth/*"],
+    }                                 /* Skip type checking all .d.ts files. */
   },
   "exclude": [
     "dist"

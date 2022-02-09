@@ -1,4 +1,4 @@
-export var Auth = {
+export var AuthHandler = {
     handleAccessTokenExpire: function (retryTimes, params) {
         chrome.storage.local.get('refreshToken', function (result) {
             var refreshToken = result.refreshToken;
