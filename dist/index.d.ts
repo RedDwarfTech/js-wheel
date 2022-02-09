@@ -1,1 +1,1 @@
-export declare function responseSuccess(response: any): boolean;
+export declare function demo(): number;
