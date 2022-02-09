@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
     "build": "tsc",
     "watch:build": "tsc --watch",
     "watch:server": "nodemon './dist/index.js' --watch './dist'",
-    "start": "npm-run-all clean build --parallel watch:build watch:server --print-label"
+    "start": "npm-run-all clean build --parallel watch:build watch:server --print-label",
+    "release": "tsc && npm publish"
   },
   "dependencies": {
     "@types/chrome": "^0.0.178",
