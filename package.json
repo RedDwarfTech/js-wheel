@@ -14,6 +14,7 @@
     "release": "tsc && npm publish"
   },
   "dependencies": {
+    "@fingerprintjs/fingerprintjs": "^3.3.2",
     "@types/chrome": "^0.0.178",
     "dayjs": "^1.10.7",
     "npm": "^8.4.1"

@@ -1,30 +1,30 @@
 import { ResponseCode } from "@net/rest/ResponseCode";
-import { AuthHandler } from "@auth/extension/AuthHandler";
+import BaseMethods from "utils/data/checker";
 
 // https://juejin.cn/post/6844904014081949710
-var isLoading = false;
+var isRefreshing = false;
 var isTokenInvalid = false;
 var promise: Promise<any> | null = null;
 
 export const RequestHandler = {
-    post: <T>(url: string, data: any) => {
-        if (isLoading === true) {
+    post: <T>(url: string, data: any,app:Number) => {
+        if (isRefreshing === true) {
             return promise?.then(() => {
                 return RequestHandler.api_post<T>(url, data);
             })
         } else if (!isTokenInvalid) {
-            promise = new Promise<any>((resolve, reject) => { 
-                isLoading = true;
+            promise = new Promise<any>((resolve, reject) => {
+                isRefreshing = true;
 
             });
         } else {
-            return RequestHandler.api_post<T>(url, data);
-        }
-    },
-    get: (response: any) => {
-        if (response.statusCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
-            let params = {};
-            AuthHandler.handleAccessTokenExpire(0, params);
+            return RequestHandler.api_post<T>(url, data)
+                .then((response: any) => {
+                    if (response.statusCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
+                        isRefreshing = true;
+                        RequestHandler.handleAccessTokenExpire(app);
+                    }
+                });
         }
     },
     api_post: <T>(url: string, data: any): Promise<T> => {
@@ -43,8 +43,104 @@ export const RequestHandler = {
                 return response.json() as Promise<T>
             })
     },
-    fetch_access_token:<T>():Promise<T> =>{
-       return RequestHandler.api_post<T>("","");
+    handleAccessTokenExpire: (app: Number) => {
+        // Initialize an agent at application startup.
+        const fpPromise = require('@fingerprintjs/fingerprintjs');
+
+        // Get the visitor identifier when you need it.
+        fpPromise
+            .then((fp: { get: () => any; }) => fp.get())
+            .then((result: { visitorId: any; }) => {
+                // This is the visitor identifier:
+                const deviceId = result.visitorId;
+                chrome.storage.local.get('refreshToken', (result) => {
+                    const refreshToken = result.refreshToken;
+                    const params = {
+                        deviceId: deviceId,
+                        app: app,
+                        refreshToken: refreshToken,
+                    };
+                    RequestHandler.refreshAccessToken(params);
+                });
+            });
+    },
+    refreshAccessToken: (data: any) => {
+        const baseUrl = '/post/auth/access_token/refresh';
+        fetch(baseUrl, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                if (res && res.resultCode === '00100100004017') {
+                    // refresh token expired
+                    RequestHandler.handleRefreshTokenExpire(data);
+                }
+                if (res && res.resultCode === '200') {
+                    const accessToken = res.result.accessToken;
+                    chrome.storage.local.set(
+                        {
+                            accessToken: accessToken,
+                        },
+                        function () {
+                            isRefreshing = false;
+                        }
+                    );
+                }
+            });
+    },
+    handleRefreshTokenExpire: (data:any) => {
+        chrome.storage.local.get('username', (resp) => {
+            const userName = resp.username;
+            if (BaseMethods.isNull(userName)) {
+                //Message('请配置用户名');
+                return;
+            }
+            chrome.storage.local.get('password', (pwdResp) => {
+                const password = pwdResp.password;
+                if (BaseMethods.isNull(password)) {
+                    //Message('请配置密码');
+                    return;
+                }
+                const urlParams = {
+                    phone: userName,
+                    app: data.app,
+                    deviceId: data.deviceId,
+                    password: password,
+                };
+                RequestHandler.refreshRefreshToken(urlParams);
+            });
+        });
+    },
+    refreshRefreshToken: (data: any) => {
+        const baseUrl = '/post/auth/refresh_token/refresh';
+        fetch(baseUrl, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res && res.resultCode === '200') {
+                    const accessToken = res.result.accessToken;
+                    const refreshToken = res.result.refreshToken;
+                    chrome.storage.local.set(
+                        {
+                            accessToken: accessToken,
+                            refreshToken: refreshToken,
+                        },
+                        function () {
+                            isRefreshing = false;
+                        }
+                    );
+                }
+            });
     }
 }
 
