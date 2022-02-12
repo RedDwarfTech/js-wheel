@@ -1,9 +1,9 @@
 import { ResponseCode } from "@net/rest/ResponseCode";
 import BaseMethods from "@utils/data/checker";
+import { WheelGlobal } from "model/immutable/WheelGlobal";
 
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
-var isTokenInvalid = false;
 var promise: Promise<any> | null = null;
 
 export const RequestHandler = {
@@ -12,27 +12,25 @@ export const RequestHandler = {
             return promise?.then(() => {
                 return RequestHandler.api_post<T>(url, data);
             })
-        } else if (!isTokenInvalid) {
-            promise = new Promise<any>((resolve, reject) => {
-                isRefreshing = true;
-
-            });
         } else {
             return RequestHandler.api_post<T>(url, data)
                 .then((response: any) => {
                     if (response.statusCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
                         isRefreshing = true;
                         RequestHandler.handleAccessTokenExpire(app);
+                    }else{
+
                     }
                 });
         }
     },
-    api_post: <T>(url: string, data: any): Promise<T> => {
+    api_post:async <T>(url: string, data: any): Promise<T> => {
+        let accessToken:any = await readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME);
         return fetch(url, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
-                'x-access-token': 'xxxxx'
+                'x-access-token': accessToken,
             },
             body: JSON.stringify(data),
         })
@@ -50,18 +48,16 @@ export const RequestHandler = {
         // Get the visitor identifier when you need it.
         fpPromise
             .then((fp: { get: () => any; }) => fp.get())
-            .then((result: { visitorId: any; }) => {
+            .then(async (result: { visitorId: any; }) => {
                 // This is the visitor identifier:
                 const deviceId = result.visitorId;
-                chrome.storage.local.get('refreshToken', (result) => {
-                    const refreshToken = result.refreshToken;
-                    const params = {
-                        deviceId: deviceId,
-                        app: app,
-                        refreshToken: refreshToken,
-                    };
-                    RequestHandler.refreshAccessToken(params);
-                });
+                let refreshToken:any = await readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME);
+                const params = {
+                    deviceId: deviceId,
+                    app: app,
+                    refreshToken: refreshToken,
+                };
+                RequestHandler.refreshAccessToken(params);
             });
     },
     refreshAccessToken: (data: any) => {
