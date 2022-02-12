@@ -1,3 +1,3 @@
 export declare function demo(): number;
-import { ResponseHandler } from "@net/rest/ResponseHandler";
+import { ResponseHandler } from "./src/net/rest/ResponseHandler";
 export { ResponseHandler };

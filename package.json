@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "tscbuild": "tsc",
+    "tscbuild": "ttsc",
     "build": "rm -rf dist && webpack --mode development --config src/config/webpack.config.js",
     "watch:build": "tsc --watch",
     "watch:server": "nodemon './dist/index.js' --watch './dist'",
@@ -22,6 +22,8 @@
     "npm": "^8.4.1",
     "rollup-plugin-typescript2": "^0.31.2",
     "ts-loader": "^9.2.6",
+    "tsc-alias": "^1.6.0",
+    "ttypescript": "^1.5.13",
     "webpack": "^5.68.0"
   },
   "repository": {
