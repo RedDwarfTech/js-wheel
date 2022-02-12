@@ -1,4 +1,6 @@
 import webpack from 'webpack';
+// https://stackoverflow.com/questions/41553291/can-you-import-nodes-path-module-using-import-path-from-path
+import * as path from 'path';
 
 export default {
   entry : {
@@ -22,7 +24,7 @@ export default {
         test: /\.ts$/,
         loader: 'ts-loader',
         options: {
-          appendTsSuffixTo: [/\.vue$/]
+          appendTsSuffixTo: [/\.vue$/],
         },
         exclude: /node_modules|\.d\.ts$/
       },
