@@ -8,12 +8,6 @@ export default {
   } ,
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
-    alias: {
-      process: 'process/browser',
-      '@': '/Users/xiaoqiangjiang/source/reddwarf/frontend/js-wheel/src',
-      '@net': '/Users/xiaoqiangjiang/source/reddwarf/frontend/js-wheel/src/net',
-      '@auth': '/Users/xiaoqiangjiang/source/reddwarf/frontend/js-wheel/src/auth',
-  },
   },
   output : {
     path :  '/Users/xiaoqiangjiang/source/reddwarf/frontend/js-wheel/dist' ,
