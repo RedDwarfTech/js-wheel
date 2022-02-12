@@ -1,5 +1,5 @@
 import { ResponseCode } from "@net/rest/ResponseCode";
-import BaseMethods from "utils/data/checker";
+import BaseMethods from "@utils/data/checker";
 
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
