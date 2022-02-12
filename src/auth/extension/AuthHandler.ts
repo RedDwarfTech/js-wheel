@@ -13,6 +13,7 @@ export const AuthHandler = {
     },
 }
 
+export default AuthHandler
 
 
 

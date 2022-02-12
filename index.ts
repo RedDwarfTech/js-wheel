@@ -1,5 +1,5 @@
 
-import { ResponseHandler} from "./src/net/rest/ResponseHandler";
+import { ResponseHandler} from "@net/rest/ResponseHandler";
 
 export default {
     ResponseHandler
