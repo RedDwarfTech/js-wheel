@@ -16,7 +16,7 @@
   \******************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n//import { ResponseHandler} from \"@net/rest/ResponseHandler\";\n//export default {\n//    ResponseHandler\n////}\nvar A = {\n    sum: function () {\n        return 1;\n    }\n};\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (A);\n\n\n//# sourceURL=webpack://js-wheel/./index.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"demo\": () => (/* binding */ demo)\n/* harmony export */ });\nfunction demo() {\n    return 1;\n}\n\n\n//# sourceURL=webpack://js-wheel/./index.ts?");
 
 /***/ })
 

@@ -1,4 +1,1 @@
-declare const A: {
-    sum: () => number;
-};
-export default A;
+export declare function demo(): number;
