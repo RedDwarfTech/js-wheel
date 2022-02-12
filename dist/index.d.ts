@@ -1,7 +1,4 @@
-declare const _default: {
-    ResponseHandler: {
-        responseSuccess: (response: any) => boolean;
-        handleCommonFailure: (response: any) => void;
-    };
+declare const A: {
+    sum: () => number;
 };
-export default _default;
+export default A;
