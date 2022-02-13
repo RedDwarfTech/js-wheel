@@ -8,13 +8,13 @@ var isRefreshing = false;
 var promise: Promise<any> | null = null;
 
 export const RequestHandler = {
-    post: <T>(url: string, data: any,app:Number) => {
+    post: async <T>(url: string, data: any,app:Number) => {
         if (isRefreshing === true) {
-            return promise?.then(() => {
-                return RequestHandler.api_post<T>(url, data);
+            return promise?.then(async () => {
+                return await RequestHandler.api_post<T>(url, data);
             })
         } else {
-            return RequestHandler.api_post<T>(url, data)
+            return await RequestHandler.api_post<T>(url, data)
                 .then((response: any) => {
                     if (response.statusCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
                         isRefreshing = true;
@@ -25,24 +25,22 @@ export const RequestHandler = {
                 });
         }
     },
-    api_post:<T>(url: string, data: any): Promise<T> => {
-        return LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME).then((result) => {
-            return fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                    'x-access-token': result,
-                },
-                body: JSON.stringify(data),
+    api_post:async <T>(url: string, data: any): Promise<T> => {
+        let accessToken:any = await LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME);
+        return fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'x-access-token': accessToken,
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(response.statusText)
+                }
+                return response.json() as Promise<T>
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(response.statusText);
-                    }
-                    return response.json() as Promise<T>;
-                });
-        });
-        
     },
     handleAccessTokenExpire: (app: Number) => {
         // Initialize an agent at application startup.

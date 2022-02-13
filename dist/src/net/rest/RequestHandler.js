@@ -42,42 +42,56 @@ import LocalStorage from "../../utils/data/LocalStorage";
 var isRefreshing = false;
 var promise = null;
 export var RequestHandler = {
-    post: function (url, data, app) {
-        if (isRefreshing === true) {
-            return promise === null || promise === void 0 ? void 0 : promise.then(function () {
-                return RequestHandler.api_post(url, data);
-            });
-        }
-        else {
-            return RequestHandler.api_post(url, data)
-                .then(function (response) {
-                if (response.statusCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
-                    isRefreshing = true;
-                    RequestHandler.handleAccessTokenExpire(app);
-                }
-                else {
-                }
-            });
-        }
-    },
-    api_post: function (url, data) {
-        return LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME).then(function (result) {
-            return fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                    'x-access-token': result,
-                },
-                body: JSON.stringify(data),
-            })
-                .then(function (response) {
-                if (!response.ok) {
-                    throw new Error(response.statusText);
-                }
-                return response.json();
-            });
+    post: function (url, data, app) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (!(isRefreshing === true)) return [3 /*break*/, 1];
+                    return [2 /*return*/, promise === null || promise === void 0 ? void 0 : promise.then(function () { return __awaiter(void 0, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, RequestHandler.api_post(url, data)];
+                                    case 1: return [2 /*return*/, _a.sent()];
+                                }
+                            });
+                        }); })];
+                case 1: return [4 /*yield*/, RequestHandler.api_post(url, data)
+                        .then(function (response) {
+                        if (response.statusCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
+                            isRefreshing = true;
+                            RequestHandler.handleAccessTokenExpire(app);
+                        }
+                        else {
+                        }
+                    })];
+                case 2: return [2 /*return*/, _a.sent()];
+            }
         });
-    },
+    }); },
+    api_post: function (url, data) { return __awaiter(void 0, void 0, void 0, function () {
+        var accessToken;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME)];
+                case 1:
+                    accessToken = _a.sent();
+                    return [2 /*return*/, fetch(url, {
+                            method: 'POST',
+                            headers: {
+                                'Content-type': 'application/json',
+                                'x-access-token': accessToken,
+                            },
+                            body: JSON.stringify(data),
+                        })
+                            .then(function (response) {
+                            if (!response.ok) {
+                                throw new Error(response.statusText);
+                            }
+                            return response.json();
+                        })];
+            }
+        });
+    }); },
     handleAccessTokenExpire: function (app) {
         // Initialize an agent at application startup.
         var fpPromise = require('@fingerprintjs/fingerprintjs');
