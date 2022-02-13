@@ -1,6 +1,6 @@
 import { ResponseCode } from "@net/rest/ResponseCode";
 import BaseMethods from "@utils/data/checker";
-import { WheelGlobal } from "model/immutable/WheelGlobal";
+import { WheelGlobal } from "@model/immutable/WheelGlobal";
 
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
