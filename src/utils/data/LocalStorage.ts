@@ -12,6 +12,15 @@ const LocalStorage = {
       });
     });
   },
+  setLocalStorage: async (key: string, value: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.set({
+        key: value
+      }, function () {
+        resolve("");
+      });
+    });
+  },
 }
 
 export default LocalStorage
