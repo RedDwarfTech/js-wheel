@@ -25,22 +25,24 @@ export const RequestHandler = {
                 });
         }
     },
-    api_post:async <T>(url: string, data: any): Promise<T> => {
-        let accessToken:any = await LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME);
-        return fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-                'x-access-token': accessToken,
-            },
-            body: JSON.stringify(data),
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(response.statusText)
-                }
-                return response.json() as Promise<T>
+    api_post:<T>(url: string, data: any): Promise<T> => {
+        return LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME).then((result) => {
+            return fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'x-access-token': result,
+                },
+                body: JSON.stringify(data),
             })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(response.statusText);
+                    }
+                    return response.json() as Promise<T>;
+                });
+        });
+        
     },
     handleAccessTokenExpire: (app: Number) => {
         // Initialize an agent at application startup.
