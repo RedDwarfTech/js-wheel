@@ -1,6 +1,7 @@
 import { ResponseCode } from "@net/rest/ResponseCode";
 import BaseMethods from "@utils/data/checker";
 import { WheelGlobal } from "@model/immutable/WheelGlobal";
+import  LocalStorage  from "@utils/data/LocalStorage";
 
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
@@ -25,7 +26,7 @@ export const RequestHandler = {
         }
     },
     api_post:async <T>(url: string, data: any): Promise<T> => {
-        let accessToken:any = await readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME);
+        let accessToken:any = await LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME);
         return fetch(url, {
             method: 'POST',
             headers: {
@@ -51,7 +52,7 @@ export const RequestHandler = {
             .then(async (result: { visitorId: any; }) => {
                 // This is the visitor identifier:
                 const deviceId = result.visitorId;
-                let refreshToken:any = await readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME);
+                let refreshToken:any = await LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME);
                 const params = {
                     deviceId: deviceId,
                     app: app,

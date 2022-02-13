@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 import { ResponseCode } from "./ResponseCode";
 import BaseMethods from "../../utils/data/checker";
 import { WheelGlobal } from "../../model/immutable/WheelGlobal";
+import LocalStorage from "../../utils/data/LocalStorage";
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
 var promise = null;
@@ -63,7 +64,7 @@ export var RequestHandler = {
         var accessToken;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME)];
+                case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME)];
                 case 1:
                     accessToken = _a.sent();
                     return [2 /*return*/, fetch(url, {
@@ -95,7 +96,7 @@ export var RequestHandler = {
                 switch (_a.label) {
                     case 0:
                         deviceId = result.visitorId;
-                        return [4 /*yield*/, readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME)];
+                        return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME)];
                     case 1:
                         refreshToken = _a.sent();
                         params = {

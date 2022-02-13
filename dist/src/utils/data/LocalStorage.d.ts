@@ -1,1 +1,4 @@
-declare const readLocalStorage: (key: string) => Promise<unknown>;
+declare const LocalStorage: {
+    readLocalStorage: (key: string) => Promise<unknown>;
+};
+export default LocalStorage;

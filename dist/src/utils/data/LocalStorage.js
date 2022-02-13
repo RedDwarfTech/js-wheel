@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,18 +34,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var readLocalStorage = function (key) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        // https://stackoverflow.com/questions/59440008/how-to-wait-for-asynchronous-chrome-storage-local-get-to-finish-before-continu
-        return [2 /*return*/, new Promise(function (resolve, reject) {
-                chrome.storage.local.get([key], function (result) {
-                    if (result[key] === undefined) {
-                        reject();
-                    }
-                    else {
-                        resolve(result[key]);
-                    }
-                });
-            })];
-    });
-}); };
+var LocalStorage = {
+    readLocalStorage: function (key) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            // https://stackoverflow.com/questions/59440008/how-to-wait-for-asynchronous-chrome-storage-local-get-to-finish-before-continu
+            return [2 /*return*/, new Promise(function (resolve, reject) {
+                    chrome.storage.local.get([key], function (result) {
+                        if (result[key] === undefined) {
+                            reject();
+                        }
+                        else {
+                            resolve(result[key]);
+                        }
+                    });
+                })];
+        });
+    }); },
+};
+export default LocalStorage;
