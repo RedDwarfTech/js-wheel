@@ -1,5 +1,5 @@
 export declare const RequestHandler: {
-    post: <T>(url: string, data: any, app: Number) => Promise<void | T>;
+    post: <T>(url: string, data: any, app: Number) => Promise<any>;
     api_post: <T_1>(url: string, data: any) => Promise<T_1>;
     handleAccessTokenExpire: (app: Number) => void;
     refreshAccessToken: (data: any) => void;

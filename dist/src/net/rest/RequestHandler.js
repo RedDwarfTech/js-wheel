@@ -62,6 +62,7 @@ export var RequestHandler = {
                             RequestHandler.handleAccessTokenExpire(app);
                         }
                         else {
+                            return response;
                         }
                     })];
                 case 2: return [2 /*return*/, _a.sent()];

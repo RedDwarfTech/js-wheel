@@ -20,7 +20,7 @@ export const RequestHandler = {
                         isRefreshing = true;
                         RequestHandler.handleAccessTokenExpire(app);
                     }else{
-
+                        return response;
                     }
                 });
         }
