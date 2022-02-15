@@ -5,4 +5,5 @@ export class WheelGlobal{
     public static readonly REFRESH_TOKEN_NAME: string = "x-refresh-token";
     public static readonly USER_NAME: string = "username";
     public static readonly PASSWORD: string = "password";
+    public static readonly BASE_AUTH_URL: string = "base-auth-url";
 }

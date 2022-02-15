@@ -17,8 +17,32 @@ export const AuthHandler = {
         };
         AuthHandler.login(loginParams);
     },
-    login: (params: any) => {
-        
+    login: async (params: any) => {
+        const apiUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
+        const baseUrl = apiUrl + '/post/user/login';
+        fetch(baseUrl, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(params),
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res && res.result && res.result.accessToken) {
+                    const accessToken = res.result.accessToken;
+                    const refreshToken = res.result.refreshToken;
+                    chrome.storage.local.set(
+                        {
+                            [WheelGlobal.ACCESS_TOKEN_NAME]: accessToken,
+                            [WheelGlobal.REFRESH_TOKEN_NAME]: refreshToken,
+                        }
+                    );
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     },
 }
 
