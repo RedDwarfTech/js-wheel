@@ -1,14 +1,14 @@
 import { ResponseCode } from "@net/rest/ResponseCode";
 import BaseMethods from "@utils/data/checker";
 import { WheelGlobal } from "@model/immutable/WheelGlobal";
-import  LocalStorage  from "@utils/data/LocalStorage";
+import LocalStorage from "@utils/data/LocalStorage";
 
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
 var promise: Promise<any> | null = null;
 
 export const RequestHandler = {
-    post: async <T>(url: string, data: any,app:Number) => {
+    post: async <T>(url: string, data: any, app: Number) => {
         if (isRefreshing === true) {
             return promise?.then(async () => {
                 return await RequestHandler.api_post<T>(url, data);
@@ -19,14 +19,14 @@ export const RequestHandler = {
                     if (response.statusCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
                         isRefreshing = true;
                         RequestHandler.handleAccessTokenExpire(app);
-                    }else{
+                    } else {
                         return response;
                     }
                 });
         }
     },
-    api_post:async <T>(url: string, data: any): Promise<T> => {
-        let accessToken:any = await LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME);
+    api_post: async <T>(url: string, data: any): Promise<T> => {
+        let accessToken: any = await LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME);
         return fetch(url, {
             method: 'POST',
             headers: {
@@ -42,24 +42,15 @@ export const RequestHandler = {
                 return response.json() as Promise<T>
             })
     },
-    handleAccessTokenExpire: (app: Number) => {
-        // Initialize an agent at application startup.
-        const fpPromise = require('@fingerprintjs/fingerprintjs');
-
-        // Get the visitor identifier when you need it.
-        fpPromise
-            .then((fp: { get: () => any; }) => fp.get())
-            .then(async (result: { visitorId: any; }) => {
-                // This is the visitor identifier:
-                const deviceId = result.visitorId;
-                let refreshToken:any = await LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME);
-                const params = {
-                    deviceId: deviceId,
-                    app: app,
-                    refreshToken: refreshToken,
-                };
-                RequestHandler.refreshAccessToken(params);
-            });
+    handleAccessTokenExpire: async (app: Number) => {
+        const deviceId = await Device.getDeviceId();
+        let refreshToken: any = await LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME);
+        const params = {
+            deviceId: deviceId,
+            app: app,
+            refreshToken: refreshToken,
+        };
+        RequestHandler.refreshAccessToken(params);
     },
     refreshAccessToken: (data: any) => {
         const baseUrl = '/post/auth/access_token/refresh';
@@ -90,7 +81,7 @@ export const RequestHandler = {
                 }
             });
     },
-    handleRefreshTokenExpire: (data:any) => {
+    handleRefreshTokenExpire: (data: any) => {
         chrome.storage.local.get('username', (resp) => {
             const userName = resp.username;
             if (BaseMethods.isNull(userName)) {

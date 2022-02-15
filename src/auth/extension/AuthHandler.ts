@@ -1,15 +1,24 @@
+import { LoginType } from "@model/enumn/LoginType";
+import { WheelGlobal } from "@model/immutable/WheelGlobal";
+import LocalStorage from "@utils/data/LocalStorage";
 
 export const AuthHandler = {
-    handleAccessTokenExpire:(retryTimes:Number, params:any) => {
-        chrome.storage.local.get('refreshToken', (result:any) => {
-            const refreshToken = result.refreshToken;
-            const urlParams = {
-                deviceId: params.deviceId,
-                app: params.appId,
-                refreshToken: refreshToken,
-            };
-            //refreshAccessToken(urlParams, e, retryTimes, params, callback);
-        });
+    pluginLogin: async () => {
+        let username:string = await LocalStorage.readLocalStorage(WheelGlobal.USER_NAME);
+        let password:string = await LocalStorage.readLocalStorage(WheelGlobal.PASSWORD);
+        let deviceId:string = await Device.getDeviceId();
+        let loginParams = {
+            phone: username,
+            password: password,
+            deviceId: deviceId,
+            app: 1,
+            deviceType: 7,
+            loginType: LoginType.PHONE,
+        };
+        AuthHandler.login(loginParams);
+    },
+    login: (params: any) => {
+        
     },
 }
 
