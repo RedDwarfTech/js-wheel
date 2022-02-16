@@ -31,8 +31,8 @@ export const RequestHandler = {
         if (accessToken) {
             return await RequestHandler.do_api_post(url, data, accessToken);
         } else {
-          await AuthHandler.pluginLogin();
-          return await RequestHandler.do_api_post(url, data, accessToken); 
+            await AuthHandler.pluginLogin();
+            return await RequestHandler.do_api_post(url, data, accessToken);
         }
     },
     do_api_post: async <T>(url: string, data: any, accessToken: string): Promise<T> => {
