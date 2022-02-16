@@ -38,6 +38,7 @@ import { ResponseCode } from "./ResponseCode";
 import BaseMethods from "../../utils/data/checker";
 import { WheelGlobal } from "../../model/immutable/WheelGlobal";
 import LocalStorage from "../../utils/data/LocalStorage";
+import AuthHandler from "../../auth/extension/AuthHandler";
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
 var promise = null;
@@ -76,49 +77,55 @@ export var RequestHandler = {
                 case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME)];
                 case 1:
                     accessToken = _a.sent();
-                    return [2 /*return*/, fetch(url, {
-                            method: 'POST',
-                            headers: {
-                                'Content-type': 'application/json',
-                                'x-access-token': accessToken,
-                            },
-                            body: JSON.stringify(data),
-                        })
-                            .then(function (response) {
-                            if (!response.ok) {
-                                throw new Error(response.statusText);
-                            }
-                            return response.json();
-                        })];
+                    if (!accessToken) return [3 /*break*/, 3];
+                    return [4 /*yield*/, RequestHandler.do_api_post(url, data, accessToken)];
+                case 2: return [2 /*return*/, _a.sent()];
+                case 3: return [4 /*yield*/, AuthHandler.pluginLogin()];
+                case 4:
+                    _a.sent();
+                    return [4 /*yield*/, RequestHandler.do_api_post(url, data, accessToken)];
+                case 5: return [2 /*return*/, _a.sent()];
             }
         });
     }); },
-    handleAccessTokenExpire: function (app) {
-        // Initialize an agent at application startup.
-        var fpPromise = require('@fingerprintjs/fingerprintjs');
-        // Get the visitor identifier when you need it.
-        fpPromise
-            .then(function (fp) { return fp.get(); })
-            .then(function (result) { return __awaiter(void 0, void 0, void 0, function () {
-            var deviceId, refreshToken, params;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        deviceId = result.visitorId;
-                        return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME)];
-                    case 1:
-                        refreshToken = _a.sent();
-                        params = {
-                            deviceId: deviceId,
-                            app: app,
-                            refreshToken: refreshToken,
-                        };
-                        RequestHandler.refreshAccessToken(params);
-                        return [2 /*return*/];
-                }
-            });
-        }); });
-    },
+    do_api_post: function (url, data, accessToken) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'x-access-token': accessToken,
+                    },
+                    body: JSON.stringify(data),
+                })
+                    .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error(response.statusText);
+                    }
+                    return response.json();
+                })];
+        });
+    }); },
+    handleAccessTokenExpire: function (app) { return __awaiter(void 0, void 0, void 0, function () {
+        var deviceId, refreshToken, params;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, Device.getDeviceId()];
+                case 1:
+                    deviceId = _a.sent();
+                    return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME)];
+                case 2:
+                    refreshToken = _a.sent();
+                    params = {
+                        deviceId: deviceId,
+                        app: app,
+                        refreshToken: refreshToken,
+                    };
+                    RequestHandler.refreshAccessToken(params);
+                    return [2 /*return*/];
+            }
+        });
+    }); },
     refreshAccessToken: function (data) {
         var baseUrl = '/post/auth/access_token/refresh';
         fetch(baseUrl, {

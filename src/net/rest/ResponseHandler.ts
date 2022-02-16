@@ -11,7 +11,7 @@ export const ResponseHandler = {
     handleCommonFailure:(response:any) => {
         if(response.statusCode === ResponseCode.ACCESS_TOKEN_EXPIRED){
             let params = {};
-            AuthHandler.handleAccessTokenExpire(0,params);
+            // AuthHandler.handleAccessTokenExpire(0,params);
         }
     }
 }

@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,35 +35,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var LocalStorage = {
-    readLocalStorage: function (key) { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            // https://stackoverflow.com/questions/59440008/how-to-wait-for-asynchronous-chrome-storage-local-get-to-finish-before-continu
-            return [2 /*return*/, new Promise(function (resolve, reject) {
-                    chrome.storage.local.get([key], function (result) {
-                        if (result[key] === undefined) {
-                            resolve("");
-                        }
-                        else {
-                            resolve(result[key]);
-                        }
-                    });
-                })];
-        });
-    }); },
-    setLocalStorage: function (key, value) { return __awaiter(void 0, void 0, void 0, function () {
+var Device = {
+    getDeviceId: function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             return [2 /*return*/, new Promise(function (resolve, reject) {
-                    var _a;
-                    // https://stackoverflow.com/questions/71125910/why-the-google-chrome-extension-setlocalstorage-function-did-not-work
-                    // https://stackoverflow.com/questions/71127300/key-is-declared-but-its-value-is-never-read-when-set-google-chrome-extension-v
-                    chrome.storage.local.set((_a = {},
-                        _a[key] = value,
-                        _a), function () {
-                        resolve("");
-                    });
+                    // Initialize an agent at application startup.
+                    var fpPromise = require('@fingerprintjs/fingerprintjs');
+                    // Get the visitor identifier when you need it.
+                    fpPromise
+                        .then(function (fp) { return fp.get(); })
+                        .then(function (result) { return __awaiter(void 0, void 0, void 0, function () {
+                        var deviceId;
+                        return __generator(this, function (_a) {
+                            deviceId = result.visitorId;
+                            resolve(deviceId);
+                            return [2 /*return*/];
+                        });
+                    }); });
                 })];
         });
-    }); },
+    }); }
 };
-export default LocalStorage;

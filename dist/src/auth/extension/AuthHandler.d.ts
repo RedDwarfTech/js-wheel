@@ -1,4 +1,5 @@
 export declare const AuthHandler: {
-    handleAccessTokenExpire: (retryTimes: Number, params: any) => void;
+    pluginLogin: () => Promise<void>;
+    login: (params: any) => Promise<void>;
 };
 export default AuthHandler;
