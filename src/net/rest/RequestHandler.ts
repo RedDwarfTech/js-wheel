@@ -2,6 +2,7 @@ import { ResponseCode } from "@net/rest/ResponseCode";
 import BaseMethods from "@utils/data/checker";
 import { WheelGlobal } from "@model/immutable/WheelGlobal";
 import LocalStorage from "@utils/data/LocalStorage";
+import AuthHandler from "@auth/extension/AuthHandler";
 
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
@@ -27,6 +28,14 @@ export const RequestHandler = {
     },
     api_post: async <T>(url: string, data: any): Promise<T> => {
         let accessToken: any = await LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME);
+        if (accessToken) {
+            return await RequestHandler.do_api_post(url, data, accessToken);
+        } else {
+          await AuthHandler.pluginLogin();
+          return await RequestHandler.do_api_post(url, data, accessToken); 
+        }
+    },
+    do_api_post: async <T>(url: string, data: any, accessToken: string): Promise<T> => {
         return fetch(url, {
             method: 'POST',
             headers: {
