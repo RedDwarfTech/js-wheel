@@ -55,3 +55,4 @@ export var ConfigHandler = {
         });
     }); }
 };
+export default ConfigHandler;

@@ -12,3 +12,5 @@ export const ConfigHandler = {
         }
     }
 }
+
+export default ConfigHandler
