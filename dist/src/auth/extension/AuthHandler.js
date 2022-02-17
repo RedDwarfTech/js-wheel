@@ -39,7 +39,7 @@ import { WheelGlobal } from "../../model/immutable/WheelGlobal";
 import LocalStorage from "../../utils/data/LocalStorage";
 export var AuthHandler = {
     pluginLogin: function () { return __awaiter(void 0, void 0, void 0, function () {
-        var username, password, deviceId, loginParams;
+        var username, password, deviceId, appId, loginParams;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.USER_NAME)];
@@ -51,11 +51,14 @@ export var AuthHandler = {
                     return [4 /*yield*/, Device.getDeviceId()];
                 case 3:
                     deviceId = _a.sent();
+                    return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY)];
+                case 4:
+                    appId = _a.sent();
                     loginParams = {
                         phone: username,
                         password: password,
                         deviceId: deviceId,
-                        app: 1,
+                        app: Number(appId),
                         deviceType: 7,
                         loginType: LoginType.PHONE,
                     };
