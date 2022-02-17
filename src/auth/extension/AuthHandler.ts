@@ -7,11 +7,12 @@ export const AuthHandler = {
         let username:string = await LocalStorage.readLocalStorage(WheelGlobal.USER_NAME);
         let password:string = await LocalStorage.readLocalStorage(WheelGlobal.PASSWORD);
         let deviceId:string = await Device.getDeviceId();
+        let appId:string = await LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY);
         let loginParams = {
             phone: username,
             password: password,
             deviceId: deviceId,
-            app: 1,
+            app: Number(appId),
             deviceType: 7,
             loginType: LoginType.PHONE,
         };
