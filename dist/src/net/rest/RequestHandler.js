@@ -39,6 +39,7 @@ import BaseMethods from "../../utils/data/checker";
 import { WheelGlobal } from "../../model/immutable/WheelGlobal";
 import LocalStorage from "../../utils/data/LocalStorage";
 import AuthHandler from "../../auth/extension/AuthHandler";
+import DeviceHandler from "../../utils/data/DeviceHandler";
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
 var promise = null;
@@ -110,7 +111,7 @@ export var RequestHandler = {
         var deviceId, refreshToken, params;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, Device.getDeviceId()];
+                case 0: return [4 /*yield*/, DeviceHandler.getDeviceId()];
                 case 1:
                     deviceId = _a.sent();
                     return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME)];

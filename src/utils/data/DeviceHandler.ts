@@ -1,4 +1,4 @@
-const Device = {
+const DeviceHandler = {
     getDeviceId: async (): Promise<string> => {
         return new Promise((resolve, reject) => {
             // Initialize an agent at application startup.
@@ -15,4 +15,6 @@ const Device = {
         });
     }
 };
+
+export default DeviceHandler;
 

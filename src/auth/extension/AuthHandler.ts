@@ -1,12 +1,13 @@
 import { LoginType } from "@model/enumn/LoginType";
 import { WheelGlobal } from "@model/immutable/WheelGlobal";
 import LocalStorage from "@utils/data/LocalStorage";
+import DeviceHandler from "@utils/data/DeviceHandler";
 
 export const AuthHandler = {
     pluginLogin: async () => {
         let username:string = await LocalStorage.readLocalStorage(WheelGlobal.USER_NAME);
         let password:string = await LocalStorage.readLocalStorage(WheelGlobal.PASSWORD);
-        let deviceId:string = await Device.getDeviceId();
+        let deviceId:string = await DeviceHandler.getDeviceId();
         let appId:string = await LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY);
         let loginParams = {
             phone: username,

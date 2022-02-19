@@ -3,6 +3,7 @@ import BaseMethods from "@utils/data/checker";
 import { WheelGlobal } from "@model/immutable/WheelGlobal";
 import LocalStorage from "@utils/data/LocalStorage";
 import AuthHandler from "@auth/extension/AuthHandler";
+import DeviceHandler from "@utils/data/DeviceHandler";
 
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
@@ -52,7 +53,7 @@ export const RequestHandler = {
             })
     },
     handleAccessTokenExpire: async (app: Number) => {
-        const deviceId = await Device.getDeviceId();
+        const deviceId = await DeviceHandler.getDeviceId();
         let refreshToken: any = await LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME);
         const params = {
             deviceId: deviceId,
