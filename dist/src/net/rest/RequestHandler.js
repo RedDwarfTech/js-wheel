@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import { ResponseCode } from "./ResponseCode";
-import BaseMethods from "../../utils/data/checker";
+import BaseMethods from "../../utils/data/BaseMethods";
 import { WheelGlobal } from "../../model/immutable/WheelGlobal";
 import LocalStorage from "../../utils/data/LocalStorage";
 import AuthHandler from "../../auth/extension/AuthHandler";

@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { WheelGlobal } from "../model/immutable/WheelGlobal";
 import LocalStorage from "../utils/data/LocalStorage";
+import BaseMethods from "../utils/data/BaseMethods";
 export var ConfigHandler = {
     init: function (config) { return __awaiter(void 0, void 0, void 0, function () {
         var appId, authUrl;
@@ -44,22 +45,20 @@ export var ConfigHandler = {
                 case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY)];
                 case 1:
                     appId = _a.sent();
-                    if (!appId) return [3 /*break*/, 2];
-                    return [2 /*return*/];
-                case 2: return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY, config.appId.toString())];
-                case 3:
+                    if (!BaseMethods.isNull(appId)) return [3 /*break*/, 3];
+                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY, config.appId.toString())];
+                case 2:
                     _a.sent();
-                    _a.label = 4;
-                case 4: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL)];
-                case 5:
+                    _a.label = 3;
+                case 3: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL)];
+                case 4:
                     authUrl = _a.sent();
-                    if (!authUrl) return [3 /*break*/, 6];
-                    return [2 /*return*/];
-                case 6: return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.baseAuthUrl.toString())];
-                case 7:
+                    if (!BaseMethods.isNull(authUrl)) return [3 /*break*/, 6];
+                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.baseAuthUrl.toString())];
+                case 5:
                     _a.sent();
-                    _a.label = 8;
-                case 8: return [2 /*return*/];
+                    _a.label = 6;
+                case 6: return [2 /*return*/];
             }
         });
     }); }

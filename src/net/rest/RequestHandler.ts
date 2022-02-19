@@ -1,5 +1,5 @@
 import { ResponseCode } from "@net/rest/ResponseCode";
-import BaseMethods from "@utils/data/checker";
+import BaseMethods from "@utils/data/BaseMethods";
 import { WheelGlobal } from "@model/immutable/WheelGlobal";
 import LocalStorage from "@utils/data/LocalStorage";
 import AuthHandler from "@auth/extension/AuthHandler";
