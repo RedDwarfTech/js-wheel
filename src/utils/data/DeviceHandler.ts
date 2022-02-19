@@ -1,8 +1,9 @@
 const DeviceHandler = {
     getDeviceId: async (): Promise<string> => {
         return new Promise((resolve, reject) => {
+            // https://stackoverflow.com/questions/71181994/typeerror-fppromise-then-is-not-a-function
             // Initialize an agent at application startup.
-            const fpPromise = require('@fingerprintjs/fingerprintjs');
+            const fpPromise = require('@fingerprintjs/fingerprintjs').load();
 
             // Get the visitor identifier when you need it.
             fpPromise
