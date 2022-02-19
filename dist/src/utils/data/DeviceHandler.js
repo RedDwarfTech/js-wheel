@@ -38,6 +38,13 @@ var DeviceHandler = {
     getDeviceId: function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             return [2 /*return*/, new Promise(function (resolve, reject) {
+                    resolve("xxxx");
+                })];
+        });
+    }); },
+    getDeviceIdEnhance: function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, new Promise(function (resolve, reject) {
                     // https://stackoverflow.com/questions/71181994/typeerror-fppromise-then-is-not-a-function
                     // Initialize an agent at application startup.
                     var fpPromise = require('@fingerprintjs/fingerprintjs').load();
