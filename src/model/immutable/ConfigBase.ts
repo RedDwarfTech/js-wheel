@@ -1,3 +1,4 @@
 export interface ConfigBase{ 
-    appId: Number
+    appId: Number,
+    baseAuthUrl: string
 }
