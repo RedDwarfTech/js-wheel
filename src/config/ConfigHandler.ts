@@ -10,6 +10,13 @@ export const ConfigHandler = {
         } else {
             await LocalStorage.setLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY, config.appId.toString());
         }
+
+        let authUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
+        if (authUrl) {
+            return;
+        } else {
+            await LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.baseAuthUrl.toString());
+        }
     }
 }
 

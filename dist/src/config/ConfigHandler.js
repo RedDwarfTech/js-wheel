@@ -38,7 +38,7 @@ import { WheelGlobal } from "../model/immutable/WheelGlobal";
 import LocalStorage from "../utils/data/LocalStorage";
 export var ConfigHandler = {
     init: function (config) { return __awaiter(void 0, void 0, void 0, function () {
-        var appId;
+        var appId, authUrl;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY)];
@@ -50,7 +50,16 @@ export var ConfigHandler = {
                 case 3:
                     _a.sent();
                     _a.label = 4;
-                case 4: return [2 /*return*/];
+                case 4: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL)];
+                case 5:
+                    authUrl = _a.sent();
+                    if (!authUrl) return [3 /*break*/, 6];
+                    return [2 /*return*/];
+                case 6: return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.baseAuthUrl.toString())];
+                case 7:
+                    _a.sent();
+                    _a.label = 8;
+                case 8: return [2 /*return*/];
             }
         });
     }); }
