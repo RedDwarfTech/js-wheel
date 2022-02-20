@@ -30,8 +30,8 @@ export const AuthHandler = {
             },
             body: JSON.stringify(params),
         })
-            .then((response) => response.json())
-            .then((res) => {
+            .then((response:any) => {
+                let res = response.json();
                 if (res && res.result && res.result.accessToken) {
                     const accessToken = res.result.accessToken;
                     const refreshToken = res.result.refreshToken;

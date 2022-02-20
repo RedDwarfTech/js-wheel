@@ -86,9 +86,9 @@ export var AuthHandler = {
                         },
                         body: JSON.stringify(params),
                     })
-                        .then(function (response) { return response.json(); })
-                        .then(function (res) {
+                        .then(function (response) {
                         var _a;
+                        var res = response.json();
                         if (res && res.result && res.result.accessToken) {
                             var accessToken = res.result.accessToken;
                             var refreshToken = res.result.refreshToken;
