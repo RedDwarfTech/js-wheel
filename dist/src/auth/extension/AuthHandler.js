@@ -69,13 +69,16 @@ export var AuthHandler = {
         });
     }); },
     login: function (params) { return __awaiter(void 0, void 0, void 0, function () {
-        var apiUrl, baseUrl;
+        var baseAuthUrl, userLoginUrl, baseUrl;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL)];
                 case 1:
-                    apiUrl = _a.sent();
-                    baseUrl = apiUrl + '/post/user/login';
+                    baseAuthUrl = _a.sent();
+                    return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL)];
+                case 2:
+                    userLoginUrl = _a.sent();
+                    baseUrl = baseAuthUrl + userLoginUrl;
                     fetch(baseUrl, {
                         method: 'POST',
                         headers: {

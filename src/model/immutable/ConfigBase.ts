@@ -1,4 +1,5 @@
 export interface ConfigBase{ 
     appId: Number,
-    baseAuthUrl: string
+    baseAuthUrl: string,
+    userLoginUrl: string
 }

@@ -20,8 +20,9 @@ export const AuthHandler = {
         AuthHandler.login(loginParams);
     },
     login: async (params: any) => {
-        const apiUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
-        const baseUrl = apiUrl + '/post/user/login';
+        const baseAuthUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
+        const userLoginUrl = await LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL);
+        const baseUrl = baseAuthUrl + userLoginUrl;
         fetch(baseUrl, {
             method: 'POST',
             headers: {
