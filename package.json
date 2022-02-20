@@ -22,6 +22,7 @@
     "npm": "^8.4.1",
     "rollup-plugin-typescript2": "^0.31.2",
     "ts-loader": "^9.2.6",
+    "ts-transformer-keys": "^0.4.3",
     "tsc-alias": "^1.6.0",
     "ttypescript": "^1.5.13",
     "webpack": "^5.68.0"

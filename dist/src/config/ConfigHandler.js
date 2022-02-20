@@ -34,32 +34,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { WheelGlobal } from "../model/immutable/WheelGlobal";
 import LocalStorage from "../utils/data/LocalStorage";
 import BaseMethods from "../utils/data/BaseMethods";
 export var ConfigHandler = {
     init: function (config) { return __awaiter(void 0, void 0, void 0, function () {
-        var appId, authUrl;
+        var keysOfProps;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY)];
-                case 1:
-                    appId = _a.sent();
-                    if (!BaseMethods.isNull(appId)) return [3 /*break*/, 3];
-                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY, config.appId.toString())];
-                case 2:
-                    _a.sent();
-                    _a.label = 3;
-                case 3: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL)];
-                case 4:
-                    authUrl = _a.sent();
-                    if (!BaseMethods.isNull(authUrl)) return [3 /*break*/, 6];
-                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.baseAuthUrl.toString())];
-                case 5:
-                    _a.sent();
-                    _a.label = 6;
-                case 6: return [2 /*return*/];
-            }
+            keysOfProps = ["appId", "baseAuthUrl", "userLoginUrl"];
+            keysOfProps.forEach(function (item) { return __awaiter(void 0, void 0, void 0, function () {
+                var cacheKey, configValue, setValue;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            cacheKey = item.replace(/[A-Z]/g, function (m) { return "-" + m.toLowerCase(); });
+                            return [4 /*yield*/, LocalStorage.readLocalStorage(cacheKey)];
+                        case 1:
+                            configValue = _a.sent();
+                            setValue = config[item];
+                            if (!(BaseMethods.isNull(configValue) || configValue !== setValue)) return [3 /*break*/, 3];
+                            return [4 /*yield*/, LocalStorage.setLocalStorage(cacheKey, setValue.toString())];
+                        case 2:
+                            _a.sent();
+                            _a.label = 3;
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            }); });
+            return [2 /*return*/];
         });
     }); }
 };

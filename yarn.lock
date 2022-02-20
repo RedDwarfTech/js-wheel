@@ -4455,6 +4455,11 @@ ts-transform-paths@^2.0.3:
   resolved "https://registry.npmjs.org/ts-transform-paths/-/ts-transform-paths-2.0.3.tgz"
   integrity sha512-eMUcIe/CCLUl90j9xqyj0RXC0t7h2E/ETbGBG3E8xFLyIMD9kTixUfZM78K1sHu0OBTFZTo6J7aUOafB8Mx+Dg==
 
+ts-transformer-keys@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/ts-transformer-keys/-/ts-transformer-keys-0.4.3.tgz#d62389a40f430c00ef98fb9575fb6778a196e3ed"
+  integrity sha512-pOTLlet1SnAvhKNr9tMAFwuv5283OkUNiq1fXTEK+vrSv+kxU3e2Ijr/UkqyX2vuMmvcNHdpXC31hob7ljH//g==
+
 ts-type@^2.1.4:
   version "2.1.4"
   resolved "https://registry.npmjs.org/ts-type/-/ts-type-2.1.4.tgz"
