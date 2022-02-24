@@ -69,38 +69,37 @@ export var AuthHandler = {
         });
     }); },
     login: function (params) { return __awaiter(void 0, void 0, void 0, function () {
-        var baseAuthUrl, userLoginUrl, baseUrl;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var baseAuthUrl, userLoginUrl, baseUrl, response, res, accessToken, refreshToken;
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL)];
                 case 1:
-                    baseAuthUrl = _a.sent();
+                    baseAuthUrl = _b.sent();
                     return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL)];
                 case 2:
-                    userLoginUrl = _a.sent();
+                    userLoginUrl = _b.sent();
                     baseUrl = baseAuthUrl + userLoginUrl;
-                    fetch(baseUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-type': 'application/json',
-                        },
-                        body: JSON.stringify(params),
-                    })
-                        .then(function (response) {
-                        var _a;
-                        var res = response.json();
-                        if (res && res.result && res.result.accessToken) {
-                            var accessToken = res.result.accessToken;
-                            var refreshToken = res.result.refreshToken;
-                            chrome.storage.local.set((_a = {},
-                                _a[WheelGlobal.ACCESS_TOKEN_NAME] = accessToken,
-                                _a[WheelGlobal.REFRESH_TOKEN_NAME] = refreshToken,
-                                _a));
-                        }
-                    })
-                        .catch(function (error) {
-                        console.error(error);
-                    });
+                    return [4 /*yield*/, fetch(baseUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-type': 'application/json',
+                            },
+                            body: JSON.stringify(params),
+                        })];
+                case 3:
+                    response = _b.sent();
+                    return [4 /*yield*/, response.json()];
+                case 4:
+                    res = _b.sent();
+                    if (res && res.result && res.result.accessToken) {
+                        accessToken = res.result.accessToken;
+                        refreshToken = res.result.refreshToken;
+                        chrome.storage.local.set((_a = {},
+                            _a[WheelGlobal.ACCESS_TOKEN_NAME] = accessToken,
+                            _a[WheelGlobal.REFRESH_TOKEN_NAME] = refreshToken,
+                            _a));
+                    }
                     return [2 /*return*/];
             }
         });
