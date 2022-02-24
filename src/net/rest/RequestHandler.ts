@@ -4,6 +4,8 @@ import { WheelGlobal } from "@model/immutable/WheelGlobal";
 import LocalStorage from "@utils/data/LocalStorage";
 import AuthHandler from "@auth/extension/AuthHandler";
 import DeviceHandler from "@utils/data/DeviceHandler";
+import { v4 as uuid } from 'uuid';
+
 
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
@@ -42,6 +44,7 @@ export const RequestHandler = {
             headers: {
                 'Content-type': 'application/json',
                 'x-access-token': accessToken,
+                'x-request-id': uuid()
             },
             body: JSON.stringify(data),
         })
