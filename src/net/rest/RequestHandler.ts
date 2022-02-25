@@ -20,7 +20,7 @@ export const RequestHandler = {
         } else {
             return await RequestHandler.api_post<T>(url, data)
                 .then((response: any) => {
-                    if (response.statusCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
+                    if (response.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
                         isRefreshing = true;
                         RequestHandler.handleAccessTokenExpire(app);
                     } else {

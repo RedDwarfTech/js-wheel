@@ -60,7 +60,7 @@ export var RequestHandler = {
                         }); })];
                 case 1: return [4 /*yield*/, RequestHandler.api_post(url, data)
                         .then(function (response) {
-                        if (response.statusCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
+                        if (response.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
                             isRefreshing = true;
                             RequestHandler.handleAccessTokenExpire(app);
                         }
