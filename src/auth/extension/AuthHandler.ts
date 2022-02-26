@@ -21,7 +21,7 @@ export const AuthHandler = {
     },
     login: async (params: any) => {
         const baseAuthUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
-        const userLoginUrl = await LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL);
+        const userLoginUrl = await LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH);
         const baseUrl = baseAuthUrl + userLoginUrl;
         let response = await fetch(baseUrl, {
             method: 'POST',

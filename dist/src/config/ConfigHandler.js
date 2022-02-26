@@ -36,11 +36,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import LocalStorage from "../utils/data/LocalStorage";
 import BaseMethods from "../utils/data/BaseMethods";
+import { WheelGlobal } from "../model/immutable/WheelGlobal";
 export var ConfigHandler = {
     init: function (config) { return __awaiter(void 0, void 0, void 0, function () {
         var keysOfProps;
         return __generator(this, function (_a) {
-            keysOfProps = ["appId", "baseAuthUrl", "userLoginUrl", "accessTokenUrlPath", "refreshTokenUrlPath"];
+            keysOfProps = ["appId", "baseAuthUrl", "userLoginUrlPath", "accessTokenUrlPath", "refreshTokenUrlPath"];
             keysOfProps.forEach(function (item) { return __awaiter(void 0, void 0, void 0, function () {
                 var cacheKey, configValue, setValue;
                 return __generator(this, function (_a) {
@@ -61,6 +62,54 @@ export var ConfigHandler = {
                 });
             }); });
             return [2 /*return*/];
+        });
+    }); },
+    stupidInit: function (config) { return __awaiter(void 0, void 0, void 0, function () {
+        var appId, authUrl, userLoginUrlPath, userAccessUrlPath, userRefreshUrlPath;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY)];
+                case 1:
+                    appId = _a.sent();
+                    if (!(BaseMethods.isNull(appId) || Number(appId) !== config.appId)) return [3 /*break*/, 3];
+                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY, config.appId.toString())];
+                case 2:
+                    _a.sent();
+                    _a.label = 3;
+                case 3: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL)];
+                case 4:
+                    authUrl = _a.sent();
+                    if (!(BaseMethods.isNull(authUrl) || authUrl !== config.baseAuthUrl)) return [3 /*break*/, 6];
+                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.baseAuthUrl.toString())];
+                case 5:
+                    _a.sent();
+                    _a.label = 6;
+                case 6: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH)];
+                case 7:
+                    userLoginUrlPath = _a.sent();
+                    if (!(BaseMethods.isNull(userLoginUrlPath) || userLoginUrlPath !== config.userLoginUrlPath)) return [3 /*break*/, 9];
+                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.userLoginUrlPath.toString())];
+                case 8:
+                    _a.sent();
+                    _a.label = 9;
+                case 9: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH)];
+                case 10:
+                    userAccessUrlPath = _a.sent();
+                    if (!(BaseMethods.isNull(userAccessUrlPath) || userAccessUrlPath !== config.accessTokenUrlPath)) return [3 /*break*/, 12];
+                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.accessTokenUrlPath.toString())];
+                case 11:
+                    _a.sent();
+                    _a.label = 12;
+                case 12: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH)];
+                case 13:
+                    userRefreshUrlPath = _a.sent();
+                    if (!(BaseMethods.isNull(userRefreshUrlPath) || userRefreshUrlPath !== config.refreshTokenUrlPath)) return [3 /*break*/, 15];
+                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.refreshTokenUrlPath.toString())];
+                case 14:
+                    _a.sent();
+                    _a.label = 15;
+                case 15: return [2 /*return*/];
+            }
         });
     }); }
 };

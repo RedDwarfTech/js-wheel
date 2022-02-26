@@ -76,7 +76,7 @@ export var AuthHandler = {
                 case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL)];
                 case 1:
                     baseAuthUrl = _b.sent();
-                    return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL)];
+                    return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH)];
                 case 2:
                     userLoginUrl = _b.sent();
                     baseUrl = baseAuthUrl + userLoginUrl;
