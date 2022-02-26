@@ -30,7 +30,7 @@ export const RequestHandler = {
         }
     },
     api_post: async <T>(url: string, data: any): Promise<T> => {
-        let accessToken: any = await LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME);
+        let accessToken: string = await LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_NAME);
         if (accessToken) {
             return await RequestHandler.do_api_post(url, data, accessToken);
         } else {
@@ -65,8 +65,10 @@ export const RequestHandler = {
         };
         RequestHandler.refreshAccessToken(params);
     },
-    refreshAccessToken: (data: any) => {
-        const baseUrl = '/post/auth/access_token/refresh';
+    refreshAccessToken: async (data: any) => {
+        const baseAuthUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
+        const accessTokenUrlPath = await LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_URL_PATH);
+        const baseUrl = baseAuthUrl + accessTokenUrlPath;
         fetch(baseUrl, {
             method: 'POST',
             headers: {
@@ -77,8 +79,7 @@ export const RequestHandler = {
             .then((res) => res.json())
             .then((res) => {
                 console.log(res);
-                if (res && res.resultCode === '00100100004017') {
-                    // refresh token expired
+                if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED) {
                     RequestHandler.handleRefreshTokenExpire(data);
                 }
                 if (res && res.resultCode === '200') {
@@ -117,8 +118,10 @@ export const RequestHandler = {
             });
         });
     },
-    refreshRefreshToken: (data: any) => {
-        const baseUrl = '/post/auth/refresh_token/refresh';
+    refreshRefreshToken: async (data: any) => {
+        const baseAuthUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
+        const refreshTokenUrlPath = await localStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_URL_PATH);
+        const baseUrl = baseAuthUrl + refreshTokenUrlPath;
         fetch(baseUrl, {
             method: 'POST',
             headers: {

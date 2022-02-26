@@ -129,32 +129,43 @@ export var RequestHandler = {
             }
         });
     }); },
-    refreshAccessToken: function (data) {
-        var baseUrl = '/post/auth/access_token/refresh';
-        fetch(baseUrl, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(function (res) { return res.json(); })
-            .then(function (res) {
-            console.log(res);
-            if (res && res.resultCode === '00100100004017') {
-                // refresh token expired
-                RequestHandler.handleRefreshTokenExpire(data);
-            }
-            if (res && res.resultCode === '200') {
-                var accessToken = res.result.accessToken;
-                chrome.storage.local.set({
-                    accessToken: accessToken,
-                }, function () {
-                    isRefreshing = false;
-                });
+    refreshAccessToken: function (data) { return __awaiter(void 0, void 0, void 0, function () {
+        var baseAuthUrl, accessTokenUrlPath, baseUrl;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL)];
+                case 1:
+                    baseAuthUrl = _a.sent();
+                    return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.ACCESS_TOKEN_URL_PATH)];
+                case 2:
+                    accessTokenUrlPath = _a.sent();
+                    baseUrl = baseAuthUrl + accessTokenUrlPath;
+                    fetch(baseUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    })
+                        .then(function (res) { return res.json(); })
+                        .then(function (res) {
+                        console.log(res);
+                        if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED) {
+                            RequestHandler.handleRefreshTokenExpire(data);
+                        }
+                        if (res && res.resultCode === '200') {
+                            var accessToken = res.result.accessToken;
+                            chrome.storage.local.set({
+                                accessToken: accessToken,
+                            }, function () {
+                                isRefreshing = false;
+                            });
+                        }
+                    });
+                    return [2 /*return*/];
             }
         });
-    },
+    }); },
     handleRefreshTokenExpire: function (data) {
         chrome.storage.local.get('username', function (resp) {
             var userName = resp.username;
@@ -178,28 +189,40 @@ export var RequestHandler = {
             });
         });
     },
-    refreshRefreshToken: function (data) {
-        var baseUrl = '/post/auth/refresh_token/refresh';
-        fetch(baseUrl, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(function (res) { return res.json(); })
-            .then(function (res) {
-            if (res && res.resultCode === '200') {
-                var accessToken = res.result.accessToken;
-                var refreshToken = res.result.refreshToken;
-                chrome.storage.local.set({
-                    accessToken: accessToken,
-                    refreshToken: refreshToken,
-                }, function () {
-                    isRefreshing = false;
-                });
+    refreshRefreshToken: function (data) { return __awaiter(void 0, void 0, void 0, function () {
+        var baseAuthUrl, refreshTokenUrlPath, baseUrl;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL)];
+                case 1:
+                    baseAuthUrl = _a.sent();
+                    return [4 /*yield*/, localStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_URL_PATH)];
+                case 2:
+                    refreshTokenUrlPath = _a.sent();
+                    baseUrl = baseAuthUrl + refreshTokenUrlPath;
+                    fetch(baseUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    })
+                        .then(function (res) { return res.json(); })
+                        .then(function (res) {
+                        if (res && res.resultCode === '200') {
+                            var accessToken = res.result.accessToken;
+                            var refreshToken = res.result.refreshToken;
+                            chrome.storage.local.set({
+                                accessToken: accessToken,
+                                refreshToken: refreshToken,
+                            }, function () {
+                                isRefreshing = false;
+                            });
+                        }
+                    });
+                    return [2 /*return*/];
             }
         });
-    }
+    }); }
 };
 export default RequestHandler;

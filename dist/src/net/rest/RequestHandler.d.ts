@@ -3,8 +3,8 @@ export declare const RequestHandler: {
     api_post: <T_1>(url: string, data: any) => Promise<T_1>;
     do_api_post: <T_2>(url: string, data: any, accessToken: string) => Promise<T_2>;
     handleAccessTokenExpire: (app: Number) => Promise<void>;
-    refreshAccessToken: (data: any) => void;
+    refreshAccessToken: (data: any) => Promise<void>;
     handleRefreshTokenExpire: (data: any) => void;
-    refreshRefreshToken: (data: any) => void;
+    refreshRefreshToken: (data: any) => Promise<void>;
 };
 export default RequestHandler;

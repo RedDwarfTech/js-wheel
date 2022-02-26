@@ -40,7 +40,7 @@ export var ConfigHandler = {
     init: function (config) { return __awaiter(void 0, void 0, void 0, function () {
         var keysOfProps;
         return __generator(this, function (_a) {
-            keysOfProps = ["appId", "baseAuthUrl", "userLoginUrl"];
+            keysOfProps = ["appId", "baseAuthUrl", "userLoginUrl", "accessTokenUrlPath", "refreshTokenUrlPath"];
             keysOfProps.forEach(function (item) { return __awaiter(void 0, void 0, void 0, function () {
                 var cacheKey, configValue, setValue;
                 return __generator(this, function (_a) {
