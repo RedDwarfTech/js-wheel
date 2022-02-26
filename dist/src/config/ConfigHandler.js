@@ -88,7 +88,7 @@ export var ConfigHandler = {
                 case 7:
                     userLoginUrlPath = _a.sent();
                     if (!(BaseMethods.isNull(userLoginUrlPath) || userLoginUrlPath !== config.userLoginUrlPath)) return [3 /*break*/, 9];
-                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.userLoginUrlPath.toString())];
+                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH, config.userLoginUrlPath.toString())];
                 case 8:
                     _a.sent();
                     _a.label = 9;
@@ -96,7 +96,7 @@ export var ConfigHandler = {
                 case 10:
                     userAccessUrlPath = _a.sent();
                     if (!(BaseMethods.isNull(userAccessUrlPath) || userAccessUrlPath !== config.accessTokenUrlPath)) return [3 /*break*/, 12];
-                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.accessTokenUrlPath.toString())];
+                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.ACCESS_TOKEN_URL_PATH, config.accessTokenUrlPath.toString())];
                 case 11:
                     _a.sent();
                     _a.label = 12;
@@ -104,7 +104,7 @@ export var ConfigHandler = {
                 case 13:
                     userRefreshUrlPath = _a.sent();
                     if (!(BaseMethods.isNull(userRefreshUrlPath) || userRefreshUrlPath !== config.refreshTokenUrlPath)) return [3 /*break*/, 15];
-                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.refreshTokenUrlPath.toString())];
+                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.REFRESH_TOKEN_URL_PATH, config.refreshTokenUrlPath.toString())];
                 case 14:
                     _a.sent();
                     _a.label = 15;

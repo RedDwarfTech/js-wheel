@@ -28,15 +28,15 @@ export const ConfigHandler = {
         }
         let userLoginUrlPath = await LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH)
         if (BaseMethods.isNull(userLoginUrlPath)|| userLoginUrlPath!==config.userLoginUrlPath) {
-            await LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.userLoginUrlPath.toString());
+            await LocalStorage.setLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH, config.userLoginUrlPath.toString());
         }
         let userAccessUrlPath = await LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH)
         if (BaseMethods.isNull(userAccessUrlPath)|| userAccessUrlPath!==config.accessTokenUrlPath) {
-            await LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.accessTokenUrlPath.toString());
+            await LocalStorage.setLocalStorage(WheelGlobal.ACCESS_TOKEN_URL_PATH, config.accessTokenUrlPath.toString());
         }
         let userRefreshUrlPath = await LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH)
         if (BaseMethods.isNull(userRefreshUrlPath)|| userRefreshUrlPath!==config.refreshTokenUrlPath) {
-            await LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.refreshTokenUrlPath.toString());
+            await LocalStorage.setLocalStorage(WheelGlobal.REFRESH_TOKEN_URL_PATH, config.refreshTokenUrlPath.toString());
         }
     }
 }
