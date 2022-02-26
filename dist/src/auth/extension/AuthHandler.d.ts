@@ -1,5 +1,5 @@
 export declare const AuthHandler: {
-    pluginLogin: () => Promise<void>;
-    login: (params: any) => Promise<void>;
+    pluginLogin: () => Promise<any>;
+    login: (params: any) => Promise<any>;
 };
 export default AuthHandler;

@@ -17,7 +17,7 @@ export const AuthHandler = {
             deviceType: 7,
             loginType: LoginType.PHONE,
         };
-        AuthHandler.login(loginParams);
+        return AuthHandler.login(loginParams);
     },
     login: async (params: any) => {
         const baseAuthUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
@@ -41,6 +41,7 @@ export const AuthHandler = {
                 }
             );
         }
+        return res;
     },
 }
 

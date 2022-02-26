@@ -63,8 +63,7 @@ export var AuthHandler = {
                         deviceType: 7,
                         loginType: LoginType.PHONE,
                     };
-                    AuthHandler.login(loginParams);
-                    return [2 /*return*/];
+                    return [2 /*return*/, AuthHandler.login(loginParams)];
             }
         });
     }); },
@@ -100,7 +99,7 @@ export var AuthHandler = {
                             _a[WheelGlobal.REFRESH_TOKEN_NAME] = refreshToken,
                             _a));
                     }
-                    return [2 /*return*/];
+                    return [2 /*return*/, res];
             }
         });
     }); },

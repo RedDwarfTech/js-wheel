@@ -5,6 +5,7 @@ import LocalStorage from "@utils/data/LocalStorage";
 import AuthHandler from "@auth/extension/AuthHandler";
 import DeviceHandler from "@utils/data/DeviceHandler";
 import { v4 as uuid } from 'uuid';
+import { ResponseHandler } from "@net/rest/ResponseHandler";
 
 
 // https://juejin.cn/post/6844904014081949710
@@ -55,6 +56,12 @@ export const RequestHandler = {
                 return response.json() as Promise<T>
             })
     },
+    handleRefreshTokenInvalid: async () => {
+       let loginRes = await AuthHandler.pluginLogin();
+       if(ResponseHandler.responseSuccess(loginRes)) {
+            isRefreshing = false;
+       }
+    },
     handleAccessTokenExpire: async (app: Number) => {
         const deviceId = await DeviceHandler.getDeviceId();
         let refreshToken: any = await LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME);
@@ -79,8 +86,8 @@ export const RequestHandler = {
             .then((res) => res.json())
             .then((res) => {
                 console.log(res);
-                if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED) {
-                    RequestHandler.handleRefreshTokenExpire(data);
+                if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
+                    RequestHandler.handleRefreshTokenInvalid();
                 }
                 if (res && res.resultCode === '200') {
                     const accessToken = res.result.accessToken;

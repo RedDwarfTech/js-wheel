@@ -41,6 +41,7 @@ import LocalStorage from "../../utils/data/LocalStorage";
 import AuthHandler from "../../auth/extension/AuthHandler";
 import DeviceHandler from "../../utils/data/DeviceHandler";
 import { v4 as uuid } from 'uuid';
+import { ResponseHandler } from "./ResponseHandler";
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
 var promise = null;
@@ -109,6 +110,20 @@ export var RequestHandler = {
                 })];
         });
     }); },
+    handleRefreshTokenInvalid: function () { return __awaiter(void 0, void 0, void 0, function () {
+        var loginRes;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, AuthHandler.pluginLogin()];
+                case 1:
+                    loginRes = _a.sent();
+                    if (ResponseHandler.responseSuccess(loginRes)) {
+                        isRefreshing = false;
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    }); },
     handleAccessTokenExpire: function (app) { return __awaiter(void 0, void 0, void 0, function () {
         var deviceId, refreshToken, params;
         return __generator(this, function (_a) {
@@ -150,8 +165,8 @@ export var RequestHandler = {
                         .then(function (res) { return res.json(); })
                         .then(function (res) {
                         console.log(res);
-                        if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED) {
-                            RequestHandler.handleRefreshTokenExpire(data);
+                        if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
+                            RequestHandler.handleRefreshTokenInvalid();
                         }
                         if (res && res.resultCode === '200') {
                             var accessToken = res.result.accessToken;
