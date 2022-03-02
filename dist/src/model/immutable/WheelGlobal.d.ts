@@ -7,5 +7,7 @@ export declare class WheelGlobal {
     static readonly USER_NAME: string;
     static readonly PASSWORD: string;
     static readonly BASE_AUTH_URL: string;
-    static readonly USER_LOGIN_URL: string;
+    static readonly USER_LOGIN_URL_PATH: string;
+    static readonly ACCESS_TOKEN_URL_PATH: string;
+    static readonly REFRESH_TOKEN_URL_PATH: string;
 }

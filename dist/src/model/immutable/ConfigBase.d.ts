@@ -1,5 +1,7 @@
 export interface ConfigBase {
     appId: Number;
     baseAuthUrl: string;
-    userLoginUrl: string;
+    userLoginUrlPath: string;
+    accessTokenUrlPath: string;
+    refreshTokenUrlPath: string;
 }

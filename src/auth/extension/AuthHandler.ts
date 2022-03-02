@@ -17,11 +17,11 @@ export const AuthHandler = {
             deviceType: 7,
             loginType: LoginType.PHONE,
         };
-        AuthHandler.login(loginParams);
+        return AuthHandler.login(loginParams);
     },
     login: async (params: any) => {
         const baseAuthUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
-        const userLoginUrl = await LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL);
+        const userLoginUrl = await LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH);
         const baseUrl = baseAuthUrl + userLoginUrl;
         let response = await fetch(baseUrl, {
             method: 'POST',
@@ -41,6 +41,7 @@ export const AuthHandler = {
                 }
             );
         }
+        return res;
     },
 }
 

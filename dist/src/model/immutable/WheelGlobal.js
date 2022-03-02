@@ -9,7 +9,9 @@ var WheelGlobal = /** @class */ (function () {
     WheelGlobal.USER_NAME = "username";
     WheelGlobal.PASSWORD = "password";
     WheelGlobal.BASE_AUTH_URL = "base-auth-url";
-    WheelGlobal.USER_LOGIN_URL = "user-login-url";
+    WheelGlobal.USER_LOGIN_URL_PATH = "user-login-url-path";
+    WheelGlobal.ACCESS_TOKEN_URL_PATH = "access-token-url-path";
+    WheelGlobal.REFRESH_TOKEN_URL_PATH = "refresh-token-url-path";
     return WheelGlobal;
 }());
 export { WheelGlobal };

@@ -63,8 +63,7 @@ export var AuthHandler = {
                         deviceType: 7,
                         loginType: LoginType.PHONE,
                     };
-                    AuthHandler.login(loginParams);
-                    return [2 /*return*/];
+                    return [2 /*return*/, AuthHandler.login(loginParams)];
             }
         });
     }); },
@@ -76,7 +75,7 @@ export var AuthHandler = {
                 case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL)];
                 case 1:
                     baseAuthUrl = _b.sent();
-                    return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL)];
+                    return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH)];
                 case 2:
                     userLoginUrl = _b.sent();
                     baseUrl = baseAuthUrl + userLoginUrl;
@@ -100,7 +99,7 @@ export var AuthHandler = {
                             _a[WheelGlobal.REFRESH_TOKEN_NAME] = refreshToken,
                             _a));
                     }
-                    return [2 /*return*/];
+                    return [2 /*return*/, res];
             }
         });
     }); },
