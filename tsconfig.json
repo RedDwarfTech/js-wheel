@@ -18,6 +18,7 @@
     /* Type Checking */
     "strict": true,                                      /* Enable all strict type-checking options. */
     "skipLibCheck": true,
+    "noImplicitAny": false,
     "baseUrl": "src",
     "paths": {
       "@net/*":["net/*"],
