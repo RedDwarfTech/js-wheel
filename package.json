@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "mocha --require babel-register test/**/**",
+    "test": "mocha --recursive --require babel-register test/**/** test/utils/data/** --bail",
     "tscbuild": "ttsc",
     "build": "rm -rf dist && webpack --mode development --config src/config/webpack.config.js",
     "watch:build": "tsc --watch",
