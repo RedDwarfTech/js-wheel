@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "mocha -r esm test/**/**",
+    "test": "mocha -r esm test/**/** test/utils/data/**",
     "tscbuild": "ttsc",
     "build": "rm -rf dist && webpack --mode development --config src/config/webpack.config.js",
     "watch:build": "tsc --watch",
