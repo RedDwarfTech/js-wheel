@@ -2,7 +2,7 @@ import { ResponseCode } from "@net/rest/ResponseCode";
 import BaseMethods from "@utils/data/BaseMethods";
 import { WheelGlobal } from "@model/immutable/WheelGlobal";
 import LocalStorage from "@utils/data/LocalStorage";
-import AuthHandler from "@auth/extension/AuthHandler";
+import { AuthHandler } from "@auth/extension/AuthHandler";
 import DeviceHandler from "@utils/data/DeviceHandler";
 import { v4 as uuid } from 'uuid';
 import { ResponseHandler } from "@net/rest/ResponseHandler";
@@ -103,27 +103,7 @@ export const RequestHandler = {
             });
     },
     handleRefreshTokenExpire: (data: any) => {
-        chrome.storage.local.get('username', (resp) => {
-            const userName = resp.username;
-            if (BaseMethods.isNull(userName)) {
-                //Message('请配置用户名');
-                return;
-            }
-            chrome.storage.local.get('password', (pwdResp) => {
-                const password = pwdResp.password;
-                if (BaseMethods.isNull(password)) {
-                    //Message('请配置密码');
-                    return;
-                }
-                const urlParams = {
-                    phone: userName,
-                    app: data.app,
-                    deviceId: data.deviceId,
-                    password: password,
-                };
-                RequestHandler.refreshRefreshToken(urlParams);
-            });
-        });
+        AuthHandler.pluginLogin();
     },
     refreshRefreshToken: async (data: any) => {
         const baseAuthUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
@@ -138,6 +118,9 @@ export const RequestHandler = {
         })
             .then((res) => res.json())
             .then((res) => {
+                if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID){
+                    AuthHandler.pluginLogin();
+                }
                 if (res && res.resultCode === '200') {
                     const accessToken = res.result.accessToken;
                     const refreshToken = res.result.refreshToken;

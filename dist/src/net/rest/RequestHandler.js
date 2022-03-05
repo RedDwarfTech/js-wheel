@@ -38,7 +38,7 @@ import { ResponseCode } from "./ResponseCode";
 import BaseMethods from "../../utils/data/BaseMethods";
 import { WheelGlobal } from "../../model/immutable/WheelGlobal";
 import LocalStorage from "../../utils/data/LocalStorage";
-import AuthHandler from "../../auth/extension/AuthHandler";
+import { AuthHandler } from "../../auth/extension/AuthHandler";
 import DeviceHandler from "../../utils/data/DeviceHandler";
 import { v4 as uuid } from 'uuid';
 import { ResponseHandler } from "./ResponseHandler";
@@ -46,7 +46,7 @@ import { ResponseHandler } from "./ResponseHandler";
 var isRefreshing = false;
 var promise = null;
 export var RequestHandler = {
-    post: function (url, data, app) { return __awaiter(void 0, void 0, void 0, function () {
+    post: function (url, data, app, product) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -63,7 +63,7 @@ export var RequestHandler = {
                         .then(function (response) {
                         if (response.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
                             isRefreshing = true;
-                            RequestHandler.handleAccessTokenExpire(app);
+                            RequestHandler.handleAccessTokenExpire(app, product);
                         }
                         else {
                             return response;
@@ -124,7 +124,7 @@ export var RequestHandler = {
             }
         });
     }); },
-    handleAccessTokenExpire: function (app) { return __awaiter(void 0, void 0, void 0, function () {
+    handleAccessTokenExpire: function (app, product) { return __awaiter(void 0, void 0, void 0, function () {
         var deviceId, refreshToken, params;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -182,27 +182,7 @@ export var RequestHandler = {
         });
     }); },
     handleRefreshTokenExpire: function (data) {
-        chrome.storage.local.get('username', function (resp) {
-            var userName = resp.username;
-            if (BaseMethods.isNull(userName)) {
-                //Message('请配置用户名');
-                return;
-            }
-            chrome.storage.local.get('password', function (pwdResp) {
-                var password = pwdResp.password;
-                if (BaseMethods.isNull(password)) {
-                    //Message('请配置密码');
-                    return;
-                }
-                var urlParams = {
-                    phone: userName,
-                    app: data.app,
-                    deviceId: data.deviceId,
-                    password: password,
-                };
-                RequestHandler.refreshRefreshToken(urlParams);
-            });
-        });
+        AuthHandler.pluginLogin();
     },
     refreshRefreshToken: function (data) { return __awaiter(void 0, void 0, void 0, function () {
         var baseAuthUrl, refreshTokenUrlPath, baseUrl;
@@ -224,6 +204,9 @@ export var RequestHandler = {
                     })
                         .then(function (res) { return res.json(); })
                         .then(function (res) {
+                        if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
+                            AuthHandler.pluginLogin();
+                        }
                         if (res && res.resultCode === '200') {
                             var accessToken = res.result.accessToken;
                             var refreshToken = res.result.refreshToken;

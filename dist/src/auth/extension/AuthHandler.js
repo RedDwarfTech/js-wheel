@@ -40,7 +40,7 @@ import LocalStorage from "../../utils/data/LocalStorage";
 import DeviceHandler from "../../utils/data/DeviceHandler";
 export var AuthHandler = {
     pluginLogin: function () { return __awaiter(void 0, void 0, void 0, function () {
-        var username, password, deviceId, appId, loginParams;
+        var username, password, deviceId, appId, productId, loginParams;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.USER_NAME)];
@@ -55,6 +55,9 @@ export var AuthHandler = {
                     return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY)];
                 case 4:
                     appId = _a.sent();
+                    return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_PRODUCT_ID_KEY)];
+                case 5:
+                    productId = _a.sent();
                     loginParams = {
                         phone: username,
                         password: password,
@@ -62,6 +65,7 @@ export var AuthHandler = {
                         app: Number(appId),
                         deviceType: 7,
                         loginType: LoginType.PHONE,
+                        product: productId
                     };
                     return [2 /*return*/, AuthHandler.login(loginParams)];
             }
