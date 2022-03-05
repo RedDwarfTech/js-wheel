@@ -135,9 +135,8 @@ export var RequestHandler = {
                 case 2:
                     refreshToken = _a.sent();
                     params = {
-                        deviceId: deviceId,
-                        app: app,
-                        refreshToken: refreshToken,
+                        grant_type: "refresh_token",
+                        refresh_token: refreshToken,
                     };
                     RequestHandler.refreshAccessToken(params);
                     return [2 /*return*/];

@@ -66,9 +66,8 @@ export const RequestHandler = {
         const deviceId = await DeviceHandler.getDeviceId();
         let refreshToken: any = await LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME);
         const params = {
-            deviceId: deviceId,
-            app: app,
-            refreshToken: refreshToken,
+            grant_type: "refresh_token",
+            refresh_token: refreshToken,
         };
         RequestHandler.refreshAccessToken(params);
     },
