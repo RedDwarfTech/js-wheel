@@ -13,7 +13,7 @@ var isRefreshing = false;
 var promise: Promise<any> | null = null;
 
 export const RequestHandler = {
-    post: async <T>(url: string, data: any, app: Number, product: Number) => {
+    post: async <T>(url: string, data: any) => {
         if (isRefreshing === true) {
             return promise?.then(async () => {
                 return await RequestHandler.api_post<T>(url, data);
@@ -23,7 +23,7 @@ export const RequestHandler = {
                 .then((response: any) => {
                     if (response.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
                         isRefreshing = true;
-                        RequestHandler.handleAccessTokenExpire(app,product);
+                        RequestHandler.handleAccessTokenExpire();
                     } else {
                         return response;
                     }
@@ -62,8 +62,7 @@ export const RequestHandler = {
             isRefreshing = false;
        }
     },
-    handleAccessTokenExpire: async (app: Number,product: Number) => {
-        const deviceId = await DeviceHandler.getDeviceId();
+    handleAccessTokenExpire: async () => {
         let refreshToken: any = await LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME);
         const params = {
             grant_type: "refresh_token",

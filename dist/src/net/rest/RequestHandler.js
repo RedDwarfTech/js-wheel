@@ -46,7 +46,7 @@ import { ResponseHandler } from "./ResponseHandler";
 var isRefreshing = false;
 var promise = null;
 export var RequestHandler = {
-    post: function (url, data, app, product) { return __awaiter(void 0, void 0, void 0, function () {
+    post: function (url, data) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -63,7 +63,7 @@ export var RequestHandler = {
                         .then(function (response) {
                         if (response.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
                             isRefreshing = true;
-                            RequestHandler.handleAccessTokenExpire(app, product);
+                            RequestHandler.handleAccessTokenExpire();
                         }
                         else {
                             return response;
@@ -124,15 +124,12 @@ export var RequestHandler = {
             }
         });
     }); },
-    handleAccessTokenExpire: function (app, product) { return __awaiter(void 0, void 0, void 0, function () {
-        var deviceId, refreshToken, params;
+    handleAccessTokenExpire: function () { return __awaiter(void 0, void 0, void 0, function () {
+        var refreshToken, params;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, DeviceHandler.getDeviceId()];
+                case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME)];
                 case 1:
-                    deviceId = _a.sent();
-                    return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME)];
-                case 2:
                     refreshToken = _a.sent();
                     params = {
                         grant_type: "refresh_token",
