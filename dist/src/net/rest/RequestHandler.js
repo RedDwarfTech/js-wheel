@@ -160,15 +160,16 @@ export var RequestHandler = {
                     })
                         .then(function (res) { return res.json(); })
                         .then(function (res) {
+                        var _a;
                         console.log(res);
                         if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
                             RequestHandler.handleRefreshTokenInvalid();
                         }
                         if (res && res.resultCode === '200') {
                             var accessToken = res.result.accessToken;
-                            chrome.storage.local.set({
-                                accessToken: accessToken,
-                            }, function () {
+                            chrome.storage.local.set((_a = {},
+                                _a[WheelGlobal.ACCESS_TOKEN_NAME] = accessToken,
+                                _a), function () {
                                 isRefreshing = false;
                             });
                         }
@@ -200,16 +201,17 @@ export var RequestHandler = {
                     })
                         .then(function (res) { return res.json(); })
                         .then(function (res) {
+                        var _a;
                         if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
                             AuthHandler.pluginLogin();
                         }
                         if (res && res.resultCode === '200') {
                             var accessToken = res.result.accessToken;
                             var refreshToken = res.result.refreshToken;
-                            chrome.storage.local.set({
-                                accessToken: accessToken,
-                                refreshToken: refreshToken,
-                            }, function () {
+                            chrome.storage.local.set((_a = {},
+                                _a[WheelGlobal.ACCESS_TOKEN_NAME] = accessToken,
+                                _a[WheelGlobal.REFRESH_TOKEN_NAME] = refreshToken,
+                                _a), function () {
                                 isRefreshing = false;
                             });
                         }

@@ -91,7 +91,7 @@ export const RequestHandler = {
                     const accessToken = res.result.accessToken;
                     chrome.storage.local.set(
                         {
-                            accessToken: accessToken,
+                            [WheelGlobal.ACCESS_TOKEN_NAME]: accessToken,
                         },
                         function () {
                             isRefreshing = false;
@@ -124,8 +124,8 @@ export const RequestHandler = {
                     const refreshToken = res.result.refreshToken;
                     chrome.storage.local.set(
                         {
-                            accessToken: accessToken,
-                            refreshToken: refreshToken,
+                            [WheelGlobal.ACCESS_TOKEN_NAME]: accessToken,
+                            [WheelGlobal.REFRESH_TOKEN_NAME]: refreshToken,
                         },
                         function () {
                             isRefreshing = false;
