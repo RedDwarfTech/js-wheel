@@ -12,3 +12,5 @@ describe('Device Test', function () {
         expect(fingerprints).to.be.a("string");
      })
 })
+
+
