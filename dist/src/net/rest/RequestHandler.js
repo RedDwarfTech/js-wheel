@@ -38,7 +38,7 @@ import { ResponseCode } from "./ResponseCode";
 import BaseMethods from "../../utils/data/BaseMethods";
 import { WheelGlobal } from "../../model/immutable/WheelGlobal";
 import LocalStorage from "../../utils/data/LocalStorage";
-import AuthHandler from "../../auth/extension/AuthHandler";
+import { AuthHandler } from "../../auth/extension/AuthHandler";
 import DeviceHandler from "../../utils/data/DeviceHandler";
 import { v4 as uuid } from 'uuid';
 import { ResponseHandler } from "./ResponseHandler";
@@ -46,7 +46,7 @@ import { ResponseHandler } from "./ResponseHandler";
 var isRefreshing = false;
 var promise = null;
 export var RequestHandler = {
-    post: function (url, data, app) { return __awaiter(void 0, void 0, void 0, function () {
+    post: function (url, data) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -63,7 +63,7 @@ export var RequestHandler = {
                         .then(function (response) {
                         if (response.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
                             isRefreshing = true;
-                            RequestHandler.handleAccessTokenExpire(app);
+                            RequestHandler.handleAccessTokenExpire();
                         }
                         else {
                             return response;
@@ -124,20 +124,16 @@ export var RequestHandler = {
             }
         });
     }); },
-    handleAccessTokenExpire: function (app) { return __awaiter(void 0, void 0, void 0, function () {
-        var deviceId, refreshToken, params;
+    handleAccessTokenExpire: function () { return __awaiter(void 0, void 0, void 0, function () {
+        var refreshToken, params;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, DeviceHandler.getDeviceId()];
+                case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME)];
                 case 1:
-                    deviceId = _a.sent();
-                    return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME)];
-                case 2:
                     refreshToken = _a.sent();
                     params = {
-                        deviceId: deviceId,
-                        app: app,
-                        refreshToken: refreshToken,
+                        grant_type: "refresh_token",
+                        refresh_token: refreshToken,
                     };
                     RequestHandler.refreshAccessToken(params);
                     return [2 /*return*/];
@@ -164,15 +160,16 @@ export var RequestHandler = {
                     })
                         .then(function (res) { return res.json(); })
                         .then(function (res) {
+                        var _a;
                         console.log(res);
                         if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
                             RequestHandler.handleRefreshTokenInvalid();
                         }
                         if (res && res.resultCode === '200') {
                             var accessToken = res.result.accessToken;
-                            chrome.storage.local.set({
-                                accessToken: accessToken,
-                            }, function () {
+                            chrome.storage.local.set((_a = {},
+                                _a[WheelGlobal.ACCESS_TOKEN_NAME] = accessToken,
+                                _a), function () {
                                 isRefreshing = false;
                             });
                         }
@@ -182,27 +179,7 @@ export var RequestHandler = {
         });
     }); },
     handleRefreshTokenExpire: function (data) {
-        chrome.storage.local.get('username', function (resp) {
-            var userName = resp.username;
-            if (BaseMethods.isNull(userName)) {
-                //Message('请配置用户名');
-                return;
-            }
-            chrome.storage.local.get('password', function (pwdResp) {
-                var password = pwdResp.password;
-                if (BaseMethods.isNull(password)) {
-                    //Message('请配置密码');
-                    return;
-                }
-                var urlParams = {
-                    phone: userName,
-                    app: data.app,
-                    deviceId: data.deviceId,
-                    password: password,
-                };
-                RequestHandler.refreshRefreshToken(urlParams);
-            });
-        });
+        AuthHandler.pluginLogin();
     },
     refreshRefreshToken: function (data) { return __awaiter(void 0, void 0, void 0, function () {
         var baseAuthUrl, refreshTokenUrlPath, baseUrl;
@@ -224,13 +201,17 @@ export var RequestHandler = {
                     })
                         .then(function (res) { return res.json(); })
                         .then(function (res) {
+                        var _a;
+                        if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
+                            AuthHandler.pluginLogin();
+                        }
                         if (res && res.resultCode === '200') {
                             var accessToken = res.result.accessToken;
                             var refreshToken = res.result.refreshToken;
-                            chrome.storage.local.set({
-                                accessToken: accessToken,
-                                refreshToken: refreshToken,
-                            }, function () {
+                            chrome.storage.local.set((_a = {},
+                                _a[WheelGlobal.ACCESS_TOKEN_NAME] = accessToken,
+                                _a[WheelGlobal.REFRESH_TOKEN_NAME] = refreshToken,
+                                _a), function () {
                                 isRefreshing = false;
                             });
                         }

@@ -2,7 +2,7 @@ import { ResponseCode } from "@net/rest/ResponseCode";
 import BaseMethods from "@utils/data/BaseMethods";
 import { WheelGlobal } from "@model/immutable/WheelGlobal";
 import LocalStorage from "@utils/data/LocalStorage";
-import AuthHandler from "@auth/extension/AuthHandler";
+import { AuthHandler } from "@auth/extension/AuthHandler";
 import DeviceHandler from "@utils/data/DeviceHandler";
 import { v4 as uuid } from 'uuid';
 import { ResponseHandler } from "@net/rest/ResponseHandler";
@@ -13,7 +13,7 @@ var isRefreshing = false;
 var promise: Promise<any> | null = null;
 
 export const RequestHandler = {
-    post: async <T>(url: string, data: any, app: Number) => {
+    post: async <T>(url: string, data: any) => {
         if (isRefreshing === true) {
             return promise?.then(async () => {
                 return await RequestHandler.api_post<T>(url, data);
@@ -23,7 +23,7 @@ export const RequestHandler = {
                 .then((response: any) => {
                     if (response.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
                         isRefreshing = true;
-                        RequestHandler.handleAccessTokenExpire(app);
+                        RequestHandler.handleAccessTokenExpire();
                     } else {
                         return response;
                     }
@@ -62,13 +62,11 @@ export const RequestHandler = {
             isRefreshing = false;
        }
     },
-    handleAccessTokenExpire: async (app: Number) => {
-        const deviceId = await DeviceHandler.getDeviceId();
+    handleAccessTokenExpire: async () => {
         let refreshToken: any = await LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME);
         const params = {
-            deviceId: deviceId,
-            app: app,
-            refreshToken: refreshToken,
+            grant_type: "refresh_token",
+            refresh_token: refreshToken,
         };
         RequestHandler.refreshAccessToken(params);
     },
@@ -93,7 +91,7 @@ export const RequestHandler = {
                     const accessToken = res.result.accessToken;
                     chrome.storage.local.set(
                         {
-                            accessToken: accessToken,
+                            [WheelGlobal.ACCESS_TOKEN_NAME]: accessToken,
                         },
                         function () {
                             isRefreshing = false;
@@ -103,27 +101,7 @@ export const RequestHandler = {
             });
     },
     handleRefreshTokenExpire: (data: any) => {
-        chrome.storage.local.get('username', (resp) => {
-            const userName = resp.username;
-            if (BaseMethods.isNull(userName)) {
-                //Message('请配置用户名');
-                return;
-            }
-            chrome.storage.local.get('password', (pwdResp) => {
-                const password = pwdResp.password;
-                if (BaseMethods.isNull(password)) {
-                    //Message('请配置密码');
-                    return;
-                }
-                const urlParams = {
-                    phone: userName,
-                    app: data.app,
-                    deviceId: data.deviceId,
-                    password: password,
-                };
-                RequestHandler.refreshRefreshToken(urlParams);
-            });
-        });
+        AuthHandler.pluginLogin();
     },
     refreshRefreshToken: async (data: any) => {
         const baseAuthUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
@@ -138,13 +116,16 @@ export const RequestHandler = {
         })
             .then((res) => res.json())
             .then((res) => {
+                if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID){
+                    AuthHandler.pluginLogin();
+                }
                 if (res && res.resultCode === '200') {
                     const accessToken = res.result.accessToken;
                     const refreshToken = res.result.refreshToken;
                     chrome.storage.local.set(
                         {
-                            accessToken: accessToken,
-                            refreshToken: refreshToken,
+                            [WheelGlobal.ACCESS_TOKEN_NAME]: accessToken,
+                            [WheelGlobal.REFRESH_TOKEN_NAME]: refreshToken,
                         },
                         function () {
                             isRefreshing = false;

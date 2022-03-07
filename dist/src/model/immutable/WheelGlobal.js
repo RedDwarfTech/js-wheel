@@ -6,6 +6,7 @@ var WheelGlobal = /** @class */ (function () {
     WheelGlobal.ACCESS_TOKEN_NAME = "x-access-token";
     WheelGlobal.REFRESH_TOKEN_NAME = "x-refresh-token";
     WheelGlobal.REDDWARF_APP_ID_KEY = "app-id";
+    WheelGlobal.REDDWARF_PRODUCT_ID_KEY = "product-id";
     WheelGlobal.USER_NAME = "username";
     WheelGlobal.PASSWORD = "password";
     WheelGlobal.BASE_AUTH_URL = "base-auth-url";

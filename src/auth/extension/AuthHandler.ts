@@ -9,6 +9,7 @@ export const AuthHandler = {
         let password: string = await LocalStorage.readLocalStorage(WheelGlobal.PASSWORD);
         let deviceId: string = await DeviceHandler.getDeviceId();
         let appId: string = await LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY);
+        let productId: string = await LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_PRODUCT_ID_KEY);
         let loginParams = {
             phone: username,
             password: password,
@@ -16,6 +17,7 @@ export const AuthHandler = {
             app: Number(appId),
             deviceType: 7,
             loginType: LoginType.PHONE,
+            product: productId
         };
         return AuthHandler.login(loginParams);
     },
