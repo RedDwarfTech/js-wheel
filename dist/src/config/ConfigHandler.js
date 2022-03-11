@@ -41,7 +41,7 @@ export var ConfigHandler = {
     init: function (config) { return __awaiter(void 0, void 0, void 0, function () {
         var keysOfProps;
         return __generator(this, function (_a) {
-            keysOfProps = ["appId", "productId", "baseAuthUrl", "userLoginUrlPath", "accessTokenUrlPath", "refreshTokenUrlPath"];
+            keysOfProps = ["appId", "baseAuthUrl", "userLoginUrlPath", "accessTokenUrlPath", "refreshTokenUrlPath"];
             keysOfProps.forEach(function (item) { return __awaiter(void 0, void 0, void 0, function () {
                 var cacheKey, configValue, setValue;
                 return __generator(this, function (_a) {
@@ -65,7 +65,7 @@ export var ConfigHandler = {
         });
     }); },
     stupidInit: function (config) { return __awaiter(void 0, void 0, void 0, function () {
-        var appId, productId, authUrl, userLoginUrlPath, userAccessUrlPath, userRefreshUrlPath;
+        var appId, authUrl, userLoginUrlPath, userAccessUrlPath, userRefreshUrlPath;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY)];
@@ -76,47 +76,39 @@ export var ConfigHandler = {
                 case 2:
                     _a.sent();
                     _a.label = 3;
-                case 3: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_PRODUCT_ID_KEY)];
+                case 3: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL)];
                 case 4:
-                    productId = _a.sent();
-                    if (!(BaseMethods.isNull(productId) || Number(productId) !== config.productId)) return [3 /*break*/, 6];
-                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.REDDWARF_PRODUCT_ID_KEY, config.productId.toString())];
+                    authUrl = _a.sent();
+                    if (!(BaseMethods.isNull(authUrl) || authUrl !== config.baseAuthUrl)) return [3 /*break*/, 6];
+                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.baseAuthUrl.toString())];
                 case 5:
                     _a.sent();
                     _a.label = 6;
-                case 6: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL)];
+                case 6: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH)];
                 case 7:
-                    authUrl = _a.sent();
-                    if (!(BaseMethods.isNull(authUrl) || authUrl !== config.baseAuthUrl)) return [3 /*break*/, 9];
-                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.baseAuthUrl.toString())];
+                    userLoginUrlPath = _a.sent();
+                    if (!(BaseMethods.isNull(userLoginUrlPath) || userLoginUrlPath !== config.userLoginUrlPath)) return [3 /*break*/, 9];
+                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH, config.userLoginUrlPath.toString())];
                 case 8:
                     _a.sent();
                     _a.label = 9;
                 case 9: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH)];
                 case 10:
-                    userLoginUrlPath = _a.sent();
-                    if (!(BaseMethods.isNull(userLoginUrlPath) || userLoginUrlPath !== config.userLoginUrlPath)) return [3 /*break*/, 12];
-                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH, config.userLoginUrlPath.toString())];
+                    userAccessUrlPath = _a.sent();
+                    if (!(BaseMethods.isNull(userAccessUrlPath) || userAccessUrlPath !== config.accessTokenUrlPath)) return [3 /*break*/, 12];
+                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.ACCESS_TOKEN_URL_PATH, config.accessTokenUrlPath.toString())];
                 case 11:
                     _a.sent();
                     _a.label = 12;
                 case 12: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH)];
                 case 13:
-                    userAccessUrlPath = _a.sent();
-                    if (!(BaseMethods.isNull(userAccessUrlPath) || userAccessUrlPath !== config.accessTokenUrlPath)) return [3 /*break*/, 15];
-                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.ACCESS_TOKEN_URL_PATH, config.accessTokenUrlPath.toString())];
+                    userRefreshUrlPath = _a.sent();
+                    if (!(BaseMethods.isNull(userRefreshUrlPath) || userRefreshUrlPath !== config.refreshTokenUrlPath)) return [3 /*break*/, 15];
+                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.REFRESH_TOKEN_URL_PATH, config.refreshTokenUrlPath.toString())];
                 case 14:
                     _a.sent();
                     _a.label = 15;
-                case 15: return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.USER_LOGIN_URL_PATH)];
-                case 16:
-                    userRefreshUrlPath = _a.sent();
-                    if (!(BaseMethods.isNull(userRefreshUrlPath) || userRefreshUrlPath !== config.refreshTokenUrlPath)) return [3 /*break*/, 18];
-                    return [4 /*yield*/, LocalStorage.setLocalStorage(WheelGlobal.REFRESH_TOKEN_URL_PATH, config.refreshTokenUrlPath.toString())];
-                case 17:
-                    _a.sent();
-                    _a.label = 18;
-                case 18: return [2 /*return*/];
+                case 15: return [2 /*return*/];
             }
         });
     }); }

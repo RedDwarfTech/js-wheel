@@ -34,23 +34,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+import mocha from 'mocha';
 var expect = require('chai').expect;
-import DeviceHandler from "../../src/utils/data/DeviceHandler";
-describe('加法函数的测试', function () {
-    it('1 加 1 应该等于 2', function () {
+mocha.setup('bdd');
+describe('Add', function () {
+    it('1 + 1', function () {
         return __awaiter(this, void 0, void 0, function () {
-            var deviceId;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        expect(1 + 1).to.be.equal(2);
-                        return [4 /*yield*/, DeviceHandler.getDeviceId()];
-                    case 1:
-                        deviceId = _a.sent();
-                        expect(deviceId).to.be.equal("xxxx");
-                        return [2 /*return*/];
-                }
+                expect(1 + 1).to.be.equal(2);
+                return [2 /*return*/];
             });
         });
     });
 });
+mocha.run();

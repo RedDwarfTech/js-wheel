@@ -22,10 +22,6 @@ export const ConfigHandler = {
         if (BaseMethods.isNull(appId)|| Number(appId)!==config.appId) {
             await LocalStorage.setLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY, config.appId.toString());
         }
-        let productId = await LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_PRODUCT_ID_KEY);
-        if (BaseMethods.isNull(productId)|| Number(productId)!==config.productId) {
-            await LocalStorage.setLocalStorage(WheelGlobal.REDDWARF_PRODUCT_ID_KEY, config.productId.toString());
-        }
         let authUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
         if (BaseMethods.isNull(authUrl)||authUrl!==config.baseAuthUrl) {
             await LocalStorage.setLocalStorage(WheelGlobal.BASE_AUTH_URL, config.baseAuthUrl.toString());
