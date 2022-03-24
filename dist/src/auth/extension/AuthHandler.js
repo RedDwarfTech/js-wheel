@@ -49,7 +49,7 @@ export var AuthHandler = {
                     return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.PASSWORD)];
                 case 2:
                     password = _a.sent();
-                    return [4 /*yield*/, DeviceHandler.getDeviceId()];
+                    return [4 /*yield*/, DeviceHandler.getDeviceIdEnhance()];
                 case 3:
                     deviceId = _a.sent();
                     return [4 /*yield*/, LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY)];

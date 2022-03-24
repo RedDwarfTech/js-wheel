@@ -34,9 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import mocha from 'mocha';
-var expect = require('chai').expect;
-mocha.setup('bdd');
+import { expect } from 'chai';
 describe('Add', function () {
     it('1 + 1', function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -47,4 +45,3 @@ describe('Add', function () {
         });
     });
 });
-mocha.run();

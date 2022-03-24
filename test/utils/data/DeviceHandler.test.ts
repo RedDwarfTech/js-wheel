@@ -15,7 +15,6 @@ describe('Device Test', function () {
          * 
          * */
         let fingerprints:string = await DeviceHandler.getDeviceIdEnhance();
-        console.log(fingerprints);
         expect(fingerprints).to.be.a("string");
      })
 })

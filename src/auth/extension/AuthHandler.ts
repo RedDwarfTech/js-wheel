@@ -7,7 +7,7 @@ export const AuthHandler = {
     pluginLogin: async () => {
         let username: string = await LocalStorage.readLocalStorage(WheelGlobal.USER_NAME);
         let password: string = await LocalStorage.readLocalStorage(WheelGlobal.PASSWORD);
-        let deviceId: string = await DeviceHandler.getDeviceId();
+        let deviceId: string = await DeviceHandler.getDeviceIdEnhance();
         let appId: string = await LocalStorage.readLocalStorage(WheelGlobal.REDDWARF_APP_ID_KEY);
         let loginParams = {
             phone: username,
