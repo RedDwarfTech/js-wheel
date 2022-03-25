@@ -1,5 +1,6 @@
 import { ResponseCode } from "./ResponseCode";
 import BaseMethods from "../../utils/data/BaseMethods";
+import RequestHandler from "./RequestHandler";
 export var ResponseHandler = {
     responseSuccess: function (response) {
         if (BaseMethods.isNull(response)) {
@@ -12,8 +13,7 @@ export var ResponseHandler = {
     },
     handleCommonFailure: function (response) {
         if (response.statusCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
-            var params = {};
-            // AuthHandler.handleAccessTokenExpire(0,params);
+            RequestHandler.handleAccessTokenExpire();
         }
     }
 };
