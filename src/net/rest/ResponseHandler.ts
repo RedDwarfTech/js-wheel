@@ -1,5 +1,6 @@
 import { ResponseCode } from "@net/rest/ResponseCode";
 import BaseMethods from "@utils/data/BaseMethods";
+import RequestHandler from "./RequestHandler";
 
 export const ResponseHandler = {
     responseSuccess:(response:any) => {
@@ -13,8 +14,7 @@ export const ResponseHandler = {
     },
     handleCommonFailure:(response:any) => {
         if(response.statusCode === ResponseCode.ACCESS_TOKEN_EXPIRED){
-            let params = {};
-            // AuthHandler.handleAccessTokenExpire(0,params);
+            RequestHandler.handleAccessTokenExpire();
         }
     }
 }
