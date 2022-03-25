@@ -57,10 +57,7 @@ export const RequestHandler = {
             })
     },
     handleRefreshTokenInvalid: async () => {
-       let loginRes = await AuthHandler.pluginLogin();
-       if(ResponseHandler.responseSuccess(loginRes)) {
-            isRefreshing = false;
-       }
+       window.location.href = "/user/login";
     },
     handleAccessTokenExpire: async () => {
         let refreshToken: any = await LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME);
@@ -99,9 +96,6 @@ export const RequestHandler = {
                     );
                 }
             });
-    },
-    handleRefreshTokenExpire: (data: any) => {
-        AuthHandler.pluginLogin();
     },
     refreshRefreshToken: async (data: any) => {
         const baseAuthUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
