@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import 'mocha';
 import { expect } from 'chai';
-import DeviceHandler from "../../../src/utils/data/DeviceHandler";
+import DeviceHandler from '@utils/data/DeviceHandler';
 describe('Device Test', function () {
     it('Get device fingerprints', function () {
         return __awaiter(this, void 0, void 0, function () {

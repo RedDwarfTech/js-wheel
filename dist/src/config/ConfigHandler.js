@@ -34,14 +34,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import LocalStorage from "../utils/data/LocalStorage";
-import BaseMethods from "../utils/data/BaseMethods";
-import { WheelGlobal } from "../model/immutable/WheelGlobal";
+import LocalStorage from "@utils/data/LocalStorage";
+import BaseMethods from "@utils/data/BaseMethods";
+// https://stackoverflow.com/questions/71191283/cannot-find-module-ts-transformer-keys-did-you-mean-to-set-the-moduleresolut
+import { keys } from "ts-transformer-keys";
+import { WheelGlobal } from "@model/immutable/WheelGlobal";
 export var ConfigHandler = {
     init: function (config) { return __awaiter(void 0, void 0, void 0, function () {
         var keysOfProps;
         return __generator(this, function (_a) {
-            keysOfProps = ["appId", "baseAuthUrl", "userLoginUrlPath", "accessTokenUrlPath", "refreshTokenUrlPath"];
+            keysOfProps = keys();
             keysOfProps.forEach(function (item) { return __awaiter(void 0, void 0, void 0, function () {
                 var cacheKey, configValue, setValue;
                 return __generator(this, function (_a) {

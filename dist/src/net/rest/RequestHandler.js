@@ -34,14 +34,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { ResponseCode } from "./ResponseCode";
-import BaseMethods from "../../utils/data/BaseMethods";
-import { WheelGlobal } from "../../model/immutable/WheelGlobal";
-import LocalStorage from "../../utils/data/LocalStorage";
-import { AuthHandler } from "../../auth/extension/AuthHandler";
-import DeviceHandler from "../../utils/data/DeviceHandler";
+import { ResponseCode } from "@net/rest/ResponseCode";
+import { WheelGlobal } from "@model/immutable/WheelGlobal";
+import LocalStorage from "@utils/data/LocalStorage";
+import { AuthHandler } from "@auth/extension/AuthHandler";
 import { v4 as uuid } from 'uuid';
-import { ResponseHandler } from "./ResponseHandler";
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
 var promise = null;
@@ -111,17 +108,9 @@ export var RequestHandler = {
         });
     }); },
     handleRefreshTokenInvalid: function () { return __awaiter(void 0, void 0, void 0, function () {
-        var loginRes;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, AuthHandler.pluginLogin()];
-                case 1:
-                    loginRes = _a.sent();
-                    if (ResponseHandler.responseSuccess(loginRes)) {
-                        isRefreshing = false;
-                    }
-                    return [2 /*return*/];
-            }
+            window.location.href = "/user/login";
+            return [2 /*return*/];
         });
     }); },
     handleAccessTokenExpire: function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -178,9 +167,6 @@ export var RequestHandler = {
             }
         });
     }); },
-    handleRefreshTokenExpire: function (data) {
-        AuthHandler.pluginLogin();
-    },
     refreshRefreshToken: function (data) { return __awaiter(void 0, void 0, void 0, function () {
         var baseAuthUrl, refreshTokenUrlPath, baseUrl;
         return __generator(this, function (_a) {

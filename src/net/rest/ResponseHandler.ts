@@ -16,6 +16,17 @@ export const ResponseHandler = {
         if(response.statusCode === ResponseCode.ACCESS_TOKEN_EXPIRED){
             RequestHandler.handleAccessTokenExpire();
         }
+    },
+    mapPageResponse:<T>(response:REST.ApiResponse) : REST.EntityList<T> => {
+        let tableSource: REST.EntityList<T> = {
+            data: response.result.list,
+            pagination: {
+              total: response.result.pagination.total,
+              per_page: response.result.pagination.pageSize,
+              page: response.result.pagination.pageNum
+            }
+        };
+        return tableSource;
     }
 }
 

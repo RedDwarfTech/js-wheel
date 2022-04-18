@@ -5,7 +5,6 @@ export declare const RequestHandler: {
     handleRefreshTokenInvalid: () => Promise<void>;
     handleAccessTokenExpire: () => Promise<void>;
     refreshAccessToken: (data: any) => Promise<void>;
-    handleRefreshTokenExpire: (data: any) => void;
     refreshRefreshToken: (data: any) => Promise<void>;
 };
 export default RequestHandler;
