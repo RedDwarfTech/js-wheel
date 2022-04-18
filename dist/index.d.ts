@@ -1,3 +1,3 @@
-export declare function demo(): number;
 import { ResponseHandler } from "@net/rest/ResponseHandler";
-export { ResponseHandler };
+import { REST } from "@model/rest/response/ApiResonse";
+export { ResponseHandler, REST };

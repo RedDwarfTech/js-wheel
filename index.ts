@@ -1,10 +1,8 @@
-export function demo(){
-    return 1;
-}
-
 import {ResponseHandler} from "@net/rest/ResponseHandler";
+import {REST} from "@model/rest/response/ApiResonse";
 
 export {
-    ResponseHandler
+    ResponseHandler,
+    REST
 }
 

@@ -19,8 +19,6 @@ export var ResponseHandler = {
     mapPageResponse: function (response) {
         var tableSource = {
             data: response.result.list,
-            success: true,
-            total: response.result.pagination.total,
             pagination: {
                 total: response.result.pagination.total,
                 per_page: response.result.pagination.pageSize,

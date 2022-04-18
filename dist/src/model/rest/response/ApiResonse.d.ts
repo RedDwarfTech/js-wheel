@@ -1,4 +1,4 @@
-declare namespace REST {
+export declare namespace REST {
     type ApiResponse = {
         result: any;
         msg?: string;
@@ -12,7 +12,6 @@ declare namespace REST {
     };
     type EntityList<T> = {
         data?: T[];
-        /** 列表的内容总数 */
         total?: number;
         success?: boolean;
         pagination: Pagination;

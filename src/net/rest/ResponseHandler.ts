@@ -1,3 +1,4 @@
+import { REST } from "@model/rest/response/ApiResonse";
 import { ResponseCode } from "@net/rest/ResponseCode";
 import BaseMethods from "@utils/data/BaseMethods";
 import RequestHandler from "./RequestHandler";
