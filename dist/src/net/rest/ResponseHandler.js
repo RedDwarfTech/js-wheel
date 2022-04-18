@@ -1,5 +1,5 @@
-import { ResponseCode } from "@net/rest/ResponseCode";
-import BaseMethods from "@utils/data/BaseMethods";
+import { ResponseCode } from "./ResponseCode";
+import BaseMethods from "../../utils/data/BaseMethods";
 import RequestHandler from "./RequestHandler";
 export var ResponseHandler = {
     responseSuccess: function (response) {

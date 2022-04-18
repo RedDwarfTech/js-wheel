@@ -1,4 +1,4 @@
-import { REST } from "@model/rest/response/ApiResonse";
+import { REST } from "../../model/rest/response/ApiResonse";
 export declare const ResponseHandler: {
     responseSuccess: (response: any) => boolean;
     handleCommonFailure: (response: any) => void;
