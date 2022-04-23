@@ -36,6 +36,16 @@ var BaseMethods = {
         return false;
     },
     /**
+     * https://stackoverflow.com/questions/23437476/in-typescript-how-to-check-if-a-string-is-numeric
+     * @param value
+     * @returns
+     */
+    isNumber: function (value) {
+        return ((value != null) &&
+            (value !== '') &&
+            !isNaN(Number(value.toString())));
+    },
+    /**
      * 数组，字符串去重
      * @param Array,String
      * @returns
