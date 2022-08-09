@@ -30,8 +30,6 @@ var TimeUtils = {
         var olds = t.getSeconds();
         // 相隔多少秒
         var timestampDiff = currentTimestamp - oldTimestamp;
-        console.log('===========================');
-        console.log('间距--》', timestampDiff);
         if (timestampDiff < 60) { // 一分钟以内
             return "刚刚";
         }

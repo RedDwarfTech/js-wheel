@@ -34,8 +34,6 @@ const TimeUtils = {
 
         // 相隔多少秒
         let timestampDiff = currentTimestamp - oldTimestamp
-        console.log('===========================')
-        console.log('间距--》', timestampDiff)
         if (timestampDiff < 60) { // 一分钟以内
             return "刚刚"
         }
