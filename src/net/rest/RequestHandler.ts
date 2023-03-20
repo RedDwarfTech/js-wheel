@@ -1,12 +1,8 @@
 import { ResponseCode } from "@net/rest/ResponseCode";
-import BaseMethods from "@utils/data/BaseMethods";
 import { WheelGlobal } from "@model/immutable/WheelGlobal";
 import LocalStorage from "@utils/data/LocalStorage";
 import { AuthHandler } from "@auth/extension/AuthHandler";
-import DeviceHandler from "@utils/data/DeviceHandler";
 import { v4 as uuid } from 'uuid';
-import { ResponseHandler } from "@net/rest/ResponseHandler";
-
 
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
@@ -57,7 +53,7 @@ export const RequestHandler = {
             })
     },
     handleRefreshTokenInvalid: async () => {
-       window.location.href = "/user/login";
+        window.location.href = "/user/login";
     },
     handleWebAccessTokenExpire: async () => {
         let refreshToken: any = localStorage.getItem(WheelGlobal.REFRESH_TOKEN_NAME);
@@ -88,13 +84,12 @@ export const RequestHandler = {
         })
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
                 if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
                     RequestHandler.handleRefreshTokenInvalid();
                 }
                 if (res && res.resultCode === '200') {
                     const accessToken = res.result.accessToken;
-                    localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME,accessToken);
+                    localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME, accessToken);
                     isRefreshing = false;
                 }
             });
@@ -112,7 +107,6 @@ export const RequestHandler = {
         })
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
                 if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
                     RequestHandler.handleRefreshTokenInvalid();
                 }
@@ -142,7 +136,7 @@ export const RequestHandler = {
         })
             .then((res) => res.json())
             .then((res) => {
-                if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID){
+                if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
                     AuthHandler.pluginLogin();
                 }
                 if (res && res.resultCode === '200') {

@@ -35,11 +35,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import { ResponseCode } from "./ResponseCode";
-import BaseMethods from "../../utils/data/BaseMethods";
 import { WheelGlobal } from "../../model/immutable/WheelGlobal";
 import LocalStorage from "../../utils/data/LocalStorage";
 import { AuthHandler } from "../../auth/extension/AuthHandler";
-import DeviceHandler from "../../utils/data/DeviceHandler";
 import { v4 as uuid } from 'uuid';
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
@@ -158,7 +156,6 @@ export var RequestHandler = {
             })
                 .then(function (res) { return res.json(); })
                 .then(function (res) {
-                console.log(res);
                 if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
                     RequestHandler.handleRefreshTokenInvalid();
                 }
@@ -192,7 +189,6 @@ export var RequestHandler = {
                         .then(function (res) { return res.json(); })
                         .then(function (res) {
                         var _a;
-                        console.log(res);
                         if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
                             RequestHandler.handleRefreshTokenInvalid();
                         }
