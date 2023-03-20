@@ -94,14 +94,8 @@ export const RequestHandler = {
                 }
                 if (res && res.resultCode === '200') {
                     const accessToken = res.result.accessToken;
-                    chrome.storage.local.set(
-                        {
-                            [WheelGlobal.ACCESS_TOKEN_NAME]: accessToken,
-                        },
-                        function () {
-                            isRefreshing = false;
-                        }
-                    );
+                    localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME,accessToken);
+                    isRefreshing = false;
                 }
             });
     },

@@ -158,18 +158,14 @@ export var RequestHandler = {
             })
                 .then(function (res) { return res.json(); })
                 .then(function (res) {
-                var _a;
                 console.log(res);
                 if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
                     RequestHandler.handleRefreshTokenInvalid();
                 }
                 if (res && res.resultCode === '200') {
                     var accessToken = res.result.accessToken;
-                    chrome.storage.local.set((_a = {},
-                        _a[WheelGlobal.ACCESS_TOKEN_NAME] = accessToken,
-                        _a), function () {
-                        isRefreshing = false;
-                    });
+                    localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME, accessToken);
+                    isRefreshing = false;
                 }
             });
             return [2 /*return*/];
