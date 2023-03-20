@@ -59,6 +59,14 @@ export const RequestHandler = {
     handleRefreshTokenInvalid: async () => {
        window.location.href = "/user/login";
     },
+    handleWebAccessTokenExpire: async () => {
+        let refreshToken: any = localStorage.getItem(WheelGlobal.REFRESH_TOKEN_NAME);
+        const params = {
+            grant_type: "refresh_token",
+            refresh_token: refreshToken,
+        };
+        RequestHandler.refreshWebAccessToken(params);
+    },
     handleAccessTokenExpire: async () => {
         let refreshToken: any = await LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME);
         const params = {
@@ -66,6 +74,36 @@ export const RequestHandler = {
             refresh_token: refreshToken,
         };
         RequestHandler.refreshAccessToken(params);
+    },
+    refreshWebAccessToken: async (data: any) => {
+        const baseAuthUrl = localStorage.getItem(WheelGlobal.BASE_AUTH_URL);
+        const accessTokenUrlPath = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_URL_PATH)!;
+        const baseUrl = baseAuthUrl + accessTokenUrlPath;
+        fetch(baseUrl, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
+                    RequestHandler.handleRefreshTokenInvalid();
+                }
+                if (res && res.resultCode === '200') {
+                    const accessToken = res.result.accessToken;
+                    chrome.storage.local.set(
+                        {
+                            [WheelGlobal.ACCESS_TOKEN_NAME]: accessToken,
+                        },
+                        function () {
+                            isRefreshing = false;
+                        }
+                    );
+                }
+            });
     },
     refreshAccessToken: async (data: any) => {
         const baseAuthUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);

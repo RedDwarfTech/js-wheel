@@ -16,6 +16,11 @@ export var ResponseHandler = {
             RequestHandler.handleAccessTokenExpire();
         }
     },
+    handleWebCommonFailure: function (response) {
+        if (response.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED) {
+            RequestHandler.handleAccessTokenExpire();
+        }
+    },
     mapPageResponse: function (response) {
         var tableSource = {
             data: response.result.list,

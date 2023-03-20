@@ -115,6 +115,18 @@ export var RequestHandler = {
             return [2 /*return*/];
         });
     }); },
+    handleWebAccessTokenExpire: function () { return __awaiter(void 0, void 0, void 0, function () {
+        var refreshToken, params;
+        return __generator(this, function (_a) {
+            refreshToken = localStorage.getItem(WheelGlobal.REFRESH_TOKEN_NAME);
+            params = {
+                grant_type: "refresh_token",
+                refresh_token: refreshToken,
+            };
+            RequestHandler.refreshWebAccessToken(params);
+            return [2 /*return*/];
+        });
+    }); },
     handleAccessTokenExpire: function () { return __awaiter(void 0, void 0, void 0, function () {
         var refreshToken, params;
         return __generator(this, function (_a) {
@@ -129,6 +141,38 @@ export var RequestHandler = {
                     RequestHandler.refreshAccessToken(params);
                     return [2 /*return*/];
             }
+        });
+    }); },
+    refreshWebAccessToken: function (data) { return __awaiter(void 0, void 0, void 0, function () {
+        var baseAuthUrl, accessTokenUrlPath, baseUrl;
+        return __generator(this, function (_a) {
+            baseAuthUrl = localStorage.getItem(WheelGlobal.BASE_AUTH_URL);
+            accessTokenUrlPath = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_URL_PATH);
+            baseUrl = baseAuthUrl + accessTokenUrlPath;
+            fetch(baseUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(function (res) { return res.json(); })
+                .then(function (res) {
+                var _a;
+                console.log(res);
+                if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
+                    RequestHandler.handleRefreshTokenInvalid();
+                }
+                if (res && res.resultCode === '200') {
+                    var accessToken = res.result.accessToken;
+                    chrome.storage.local.set((_a = {},
+                        _a[WheelGlobal.ACCESS_TOKEN_NAME] = accessToken,
+                        _a), function () {
+                        isRefreshing = false;
+                    });
+                }
+            });
+            return [2 /*return*/];
         });
     }); },
     refreshAccessToken: function (data) { return __awaiter(void 0, void 0, void 0, function () {

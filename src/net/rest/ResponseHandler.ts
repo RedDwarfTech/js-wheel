@@ -18,6 +18,11 @@ export const ResponseHandler = {
             RequestHandler.handleAccessTokenExpire();
         }
     },
+    handleWebCommonFailure:(response:any) => {
+        if(response.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED){
+            RequestHandler.handleAccessTokenExpire();
+        }
+    },
     mapPageResponse:<T>(response:REST.ApiResponse) : REST.EntityList<T> => {
         let tableSource: REST.EntityList<T> = {
             data: response.result.list,
