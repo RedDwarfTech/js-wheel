@@ -14,7 +14,7 @@ export const ResponseHandler = {
         return false;
     },
     handleCommonFailure:(response:any) => {
-        if(response.statusCode === ResponseCode.ACCESS_TOKEN_EXPIRED){
+        if(response.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED){
             RequestHandler.handleAccessTokenExpire();
         }
     },
