@@ -10,6 +10,25 @@ const TimeUtils = {
     getMonthEndMilliseconds: () => {
         dayjs().endOf('month').valueOf();
     },
+    getFormattedTime (unix_timestamp: number) {
+        // Create a new JavaScript Date object based on the timestamp
+        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+        var date = new Date(unix_timestamp * 1000);
+        return TimeUtils.getCurrentFormattedTime(date);
+    },
+    getCurrentFormattedTime(now: Date = new Date()) {
+        const year = now.getFullYear();
+        const month = TimeUtils.padLeftZero(now.getMonth() + 1);
+        const date = TimeUtils.padLeftZero(now.getDate());
+        const hour = TimeUtils.padLeftZero(now.getHours());
+        const minute = TimeUtils.padLeftZero(now.getMinutes());
+        const second = TimeUtils.padLeftZero(now.getSeconds());
+        const millisecond = TimeUtils.padLeftZero(now.getMilliseconds(), 3);
+        return `${year}-${month}-${date} ${hour}:${minute}:${second} ${millisecond}`;
+    },
+    padLeftZero(val: number, len: number = 2){
+        return (Array(len).join('0') + val).slice(-len);
+    },
     getPrevFormattedTime: (time: number | string) => {
         // 拿到当前的时间戳（毫秒) -- 转换为秒
         let currentTime = new Date()
