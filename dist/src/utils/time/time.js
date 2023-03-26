@@ -9,6 +9,27 @@ var TimeUtils = {
     getMonthEndMilliseconds: function () {
         dayjs().endOf('month').valueOf();
     },
+    getFormattedTime: function (unix_timestamp) {
+        // Create a new JavaScript Date object based on the timestamp
+        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+        var date = new Date(unix_timestamp * 1000);
+        return TimeUtils.getCurrentFormattedTime(date);
+    },
+    getCurrentFormattedTime: function (now) {
+        if (now === void 0) { now = new Date(); }
+        var year = now.getFullYear();
+        var month = TimeUtils.padLeftZero(now.getMonth() + 1);
+        var date = TimeUtils.padLeftZero(now.getDate());
+        var hour = TimeUtils.padLeftZero(now.getHours());
+        var minute = TimeUtils.padLeftZero(now.getMinutes());
+        var second = TimeUtils.padLeftZero(now.getSeconds());
+        var millisecond = TimeUtils.padLeftZero(now.getMilliseconds(), 3);
+        return "".concat(year, "-").concat(month, "-").concat(date, " ").concat(hour, ":").concat(minute, ":").concat(second, " ").concat(millisecond);
+    },
+    padLeftZero: function (val, len) {
+        if (len === void 0) { len = 2; }
+        return (Array(len).join('0') + val).slice(-len);
+    },
     getPrevFormattedTime: function (time) {
         // 拿到当前的时间戳（毫秒) -- 转换为秒
         var currentTime = new Date();
