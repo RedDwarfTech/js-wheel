@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-const TimeUtils = {
+export const TimeUtils = {
     getMonthStart: () => {
         dayjs().startOf('month').add(1, 'day').set('year', 2018).format('YYYY-MM-DD HH:mm:ss');
     },
@@ -30,25 +30,17 @@ const TimeUtils = {
         return (Array(len).join('0') + val).slice(-len);
     },
     getPrevFormattedTime: (time: number | string) => {
-        // 拿到当前的时间戳（毫秒) -- 转换为秒
         let currentTime = new Date()
         let currentTimestamp = parseInt((currentTime.getTime() / 1000).toString())
-
-        // 传进来的时间戳（毫秒)
         let t = new Date(time)
         let oldTimestamp = parseInt((t.getTime() / 1000).toString())
-
-        // 年
         let oldY = t.getFullYear()
         // 月
         let oldM = t.getMonth() + 1
         // 日
         let oldD = t.getDate()
-        // 时
         let oldH = t.getHours()
-        // 分
         let oldi = t.getMinutes()
-        // 秒
         let olds = t.getSeconds()
 
         // 相隔多少秒

@@ -1,4 +1,4 @@
-declare const TimeUtils: {
+export declare const TimeUtils: {
     getMonthStart: () => void;
     getMonthStartMilliseconds: () => void;
     getMonthEndMilliseconds: () => void;

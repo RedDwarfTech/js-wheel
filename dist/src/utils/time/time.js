@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-var TimeUtils = {
+export var TimeUtils = {
     getMonthStart: function () {
         dayjs().startOf('month').add(1, 'day').set('year', 2018).format('YYYY-MM-DD HH:mm:ss');
     },
@@ -31,23 +31,17 @@ var TimeUtils = {
         return (Array(len).join('0') + val).slice(-len);
     },
     getPrevFormattedTime: function (time) {
-        // 拿到当前的时间戳（毫秒) -- 转换为秒
         var currentTime = new Date();
         var currentTimestamp = parseInt((currentTime.getTime() / 1000).toString());
-        // 传进来的时间戳（毫秒)
         var t = new Date(time);
         var oldTimestamp = parseInt((t.getTime() / 1000).toString());
-        // 年
         var oldY = t.getFullYear();
         // 月
         var oldM = t.getMonth() + 1;
         // 日
         var oldD = t.getDate();
-        // 时
         var oldH = t.getHours();
-        // 分
         var oldi = t.getMinutes();
-        // 秒
         var olds = t.getSeconds();
         // 相隔多少秒
         var timestampDiff = currentTimestamp - oldTimestamp;
