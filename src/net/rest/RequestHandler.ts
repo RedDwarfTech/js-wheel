@@ -55,13 +55,13 @@ export const RequestHandler = {
     handleRefreshTokenInvalid: async () => {
         window.location.href = "/user/login";
     },
-    handleWebAccessTokenExpire: async () => {
+    handleWebAccessTokenExpire: async () :Promise<{access_token: string}>=> {
         let refreshToken: any = localStorage.getItem(WheelGlobal.REFRESH_TOKEN_NAME);
         const params = {
             grant_type: "refresh_token",
             refresh_token: refreshToken,
         };
-        RequestHandler.refreshWebAccessToken(params);
+        return await RequestHandler.refreshWebAccessToken(params);
     },
     handleAccessTokenExpire: async () => {
         let refreshToken: any = await LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME);
@@ -71,11 +71,11 @@ export const RequestHandler = {
         };
         RequestHandler.refreshAccessToken(params);
     },
-    refreshWebAccessToken: async (data: any) => {
+    refreshWebAccessToken: async (data: any):Promise<{access_token: string}> => {
         const baseAuthUrl = localStorage.getItem(WheelGlobal.BASE_AUTH_URL);
         const accessTokenUrlPath = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_URL_PATH)!;
         const baseUrl = baseAuthUrl + accessTokenUrlPath;
-        fetch(baseUrl, {
+        return fetch(baseUrl, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -84,14 +84,13 @@ export const RequestHandler = {
         })
             .then((res) => res.json())
             .then((res) => {
-                if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
-                    RequestHandler.handleRefreshTokenInvalid();
-                }
                 if (res && res.resultCode === '200') {
                     const accessToken = res.result.accessToken;
                     localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME, accessToken);
                     isRefreshing = false;
+                    return Promise.resolve({access_token: res.access_token});
                 }
+                return Promise.reject(new Error(res.message));
             });
     },
     refreshAccessToken: async (data: any) => {

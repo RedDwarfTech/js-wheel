@@ -18,9 +18,9 @@ export const ResponseHandler = {
             RequestHandler.handleAccessTokenExpire();
         }
     },
-    handleWebCommonFailure:(response:any) => {
+    handleWebCommonFailure:async (response:any) => {
         if(response.resultCode === ResponseCode.ACCESS_TOKEN_EXPIRED){
-            RequestHandler.handleWebAccessTokenExpire();
+            return await RequestHandler.handleWebAccessTokenExpire();
         }
     },
     mapPageResponse:<T>(response:REST.ApiResponse) : REST.EntityList<T> => {

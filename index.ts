@@ -4,6 +4,7 @@ import { RequestHandler } from "@net/rest/RequestHandler";
 import { WheelGlobal } from "@model/immutable/WheelGlobal";
 import { IUserModel } from "@model/user/IUserModel";
 import { TimeUtils } from "@utils/time/time";
+import { ResponseCode } from "@net/rest/ResponseCode";
 
 export {
     ResponseHandler,
@@ -11,6 +12,7 @@ export {
     RequestHandler,
     WheelGlobal,
     IUserModel,
-    TimeUtils
+    TimeUtils,
+    ResponseCode
 }
 

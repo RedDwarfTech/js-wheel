@@ -4,4 +4,5 @@ import { RequestHandler } from "./src/net/rest/RequestHandler";
 import { WheelGlobal } from "./src/model/immutable/WheelGlobal";
 import { IUserModel } from "./src/model/user/IUserModel";
 import { TimeUtils } from "./src/utils/time/time";
-export { ResponseHandler, REST, RequestHandler, WheelGlobal, IUserModel, TimeUtils };
+import { ResponseCode } from "./src/net/rest/ResponseCode";
+export { ResponseHandler, REST, RequestHandler, WheelGlobal, IUserModel, TimeUtils, ResponseCode };

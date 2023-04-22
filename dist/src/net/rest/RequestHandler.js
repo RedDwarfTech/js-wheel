@@ -116,13 +116,16 @@ export var RequestHandler = {
     handleWebAccessTokenExpire: function () { return __awaiter(void 0, void 0, void 0, function () {
         var refreshToken, params;
         return __generator(this, function (_a) {
-            refreshToken = localStorage.getItem(WheelGlobal.REFRESH_TOKEN_NAME);
-            params = {
-                grant_type: "refresh_token",
-                refresh_token: refreshToken,
-            };
-            RequestHandler.refreshWebAccessToken(params);
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    refreshToken = localStorage.getItem(WheelGlobal.REFRESH_TOKEN_NAME);
+                    params = {
+                        grant_type: "refresh_token",
+                        refresh_token: refreshToken,
+                    };
+                    return [4 /*yield*/, RequestHandler.refreshWebAccessToken(params)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
         });
     }); },
     handleAccessTokenExpire: function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -147,25 +150,23 @@ export var RequestHandler = {
             baseAuthUrl = localStorage.getItem(WheelGlobal.BASE_AUTH_URL);
             accessTokenUrlPath = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_URL_PATH);
             baseUrl = baseAuthUrl + accessTokenUrlPath;
-            fetch(baseUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-                .then(function (res) { return res.json(); })
-                .then(function (res) {
-                if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
-                    RequestHandler.handleRefreshTokenInvalid();
-                }
-                if (res && res.resultCode === '200') {
-                    var accessToken = res.result.accessToken;
-                    localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME, accessToken);
-                    isRefreshing = false;
-                }
-            });
-            return [2 /*return*/];
+            return [2 /*return*/, fetch(baseUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                    .then(function (res) { return res.json(); })
+                    .then(function (res) {
+                    if (res && res.resultCode === '200') {
+                        var accessToken = res.result.accessToken;
+                        localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME, accessToken);
+                        isRefreshing = false;
+                        return Promise.resolve({ access_token: res.access_token });
+                    }
+                    return Promise.reject(new Error(res.message));
+                })];
         });
     }); },
     refreshAccessToken: function (data) { return __awaiter(void 0, void 0, void 0, function () {
