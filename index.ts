@@ -5,6 +5,7 @@ import { WheelGlobal } from "@model/immutable/WheelGlobal";
 import { IUserModel } from "@model/user/IUserModel";
 import { TimeUtils } from "@utils/time/time";
 import { ResponseCode } from "@net/rest/ResponseCode";
+import { AuthHandler } from "@auth/extension/AuthHandler";
 
 export {
     ResponseHandler,
@@ -13,6 +14,7 @@ export {
     WheelGlobal,
     IUserModel,
     TimeUtils,
-    ResponseCode
+    ResponseCode,
+    AuthHandler
 }
 
