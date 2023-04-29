@@ -39,6 +39,18 @@ import { WheelGlobal } from "../../model/immutable/WheelGlobal";
 import LocalStorage from "../../utils/data/LocalStorage";
 import DeviceHandler from "../../utils/data/DeviceHandler";
 export var AuthHandler = {
+    storeUserAuthInfo: function (accessTokenOrigin, baseAuthUrl, accessTokenUrlPath) {
+        var _a, _b;
+        var accessTokenCookie = accessTokenOrigin.split("=")[1];
+        var refreshTokenCookie = (_a = document.cookie.split('; ').find(function (row) { return row.startsWith('refreshToken='); })) === null || _a === void 0 ? void 0 : _a.split("=")[1];
+        var avatarUrlCookie = (_b = document.cookie.split('; ').find(function (row) { return row.startsWith('avatarUrl='); })) === null || _b === void 0 ? void 0 : _b.split("=")[1];
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME, accessTokenCookie);
+        localStorage.setItem(WheelGlobal.REFRESH_TOKEN_NAME, refreshTokenCookie ? refreshTokenCookie : "");
+        localStorage.setItem('avatarUrl', avatarUrlCookie ? avatarUrlCookie : "");
+        localStorage.setItem(WheelGlobal.BASE_AUTH_URL, baseAuthUrl);
+        localStorage.setItem(WheelGlobal.ACCESS_TOKEN_URL_PATH, accessTokenUrlPath);
+    },
     pluginLogin: function () { return __awaiter(void 0, void 0, void 0, function () {
         var username, password, deviceId, appId, loginParams;
         return __generator(this, function (_a) {

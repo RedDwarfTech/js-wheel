@@ -4,6 +4,17 @@ import LocalStorage from "@utils/data/LocalStorage";
 import DeviceHandler from "@utils/data/DeviceHandler";
 
 export const AuthHandler = {
+    storeUserAuthInfo: (accessTokenOrigin: string,baseAuthUrl:string,accessTokenUrlPath:string) => {
+        const accessTokenCookie = accessTokenOrigin.split("=")[1];
+        const refreshTokenCookie = document.cookie.split('; ').find(row => row.startsWith('refreshToken='))?.split("=")[1];
+        const avatarUrlCookie = document.cookie.split('; ').find(row => row.startsWith('avatarUrl='))?.split("=")[1];
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME, accessTokenCookie);
+        localStorage.setItem(WheelGlobal.REFRESH_TOKEN_NAME, refreshTokenCookie ? refreshTokenCookie : "");
+        localStorage.setItem('avatarUrl', avatarUrlCookie ? avatarUrlCookie : "");
+        localStorage.setItem(WheelGlobal.BASE_AUTH_URL, baseAuthUrl);
+        localStorage.setItem(WheelGlobal.ACCESS_TOKEN_URL_PATH, accessTokenUrlPath);
+    },
     pluginLogin: async () => {
         let username: string = await LocalStorage.readLocalStorage(WheelGlobal.USER_NAME);
         let password: string = await LocalStorage.readLocalStorage(WheelGlobal.PASSWORD);
