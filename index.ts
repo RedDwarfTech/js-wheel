@@ -6,6 +6,7 @@ import { IUserModel } from "@model/user/IUserModel";
 import { TimeUtils } from "@utils/time/time";
 import { ResponseCode } from "@net/rest/ResponseCode";
 import { AuthHandler } from "@auth/extension/AuthHandler";
+import { RdColor } from "@utils/graphic/RdColor";
 
 export {
     ResponseHandler,
@@ -15,6 +16,7 @@ export {
     IUserModel,
     TimeUtils,
     ResponseCode,
-    AuthHandler
+    AuthHandler,
+    RdColor
 }
 
