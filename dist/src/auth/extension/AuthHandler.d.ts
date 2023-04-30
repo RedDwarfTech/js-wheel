@@ -1,5 +1,7 @@
+import { ILoginUserModel } from "../../model/user/ILoginUserModel";
 export declare const AuthHandler: {
-    storeUserAuthInfo: (accessTokenOrigin: string, baseAuthUrl: string, accessTokenUrlPath: string) => void;
+    storeLoginAuthInfo: (loginUser: ILoginUserModel, baseAuthUrl: string, accessTokenUrlPath: string) => void;
+    storeCookieAuthInfo: (accessTokenOrigin: string, baseAuthUrl: string, accessTokenUrlPath: string) => void;
     pluginLogin: () => Promise<any>;
     login: (params: any) => Promise<any>;
 };

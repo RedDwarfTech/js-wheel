@@ -39,7 +39,15 @@ import { WheelGlobal } from "../../model/immutable/WheelGlobal";
 import LocalStorage from "../../utils/data/LocalStorage";
 import DeviceHandler from "../../utils/data/DeviceHandler";
 export var AuthHandler = {
-    storeUserAuthInfo: function (accessTokenOrigin, baseAuthUrl, accessTokenUrlPath) {
+    storeLoginAuthInfo: function (loginUser, baseAuthUrl, accessTokenUrlPath) {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME, loginUser.accessToken);
+        localStorage.setItem(WheelGlobal.REFRESH_TOKEN_NAME, loginUser.refreshToken);
+        localStorage.setItem('avatarUrl', loginUser.avatarUrl);
+        localStorage.setItem(WheelGlobal.BASE_AUTH_URL, baseAuthUrl);
+        localStorage.setItem(WheelGlobal.ACCESS_TOKEN_URL_PATH, accessTokenUrlPath);
+    },
+    storeCookieAuthInfo: function (accessTokenOrigin, baseAuthUrl, accessTokenUrlPath) {
         var _a, _b;
         var accessTokenCookie = accessTokenOrigin.split("=")[1];
         var refreshTokenCookie = (_a = document.cookie.split('; ').find(function (row) { return row.startsWith('refreshToken='); })) === null || _a === void 0 ? void 0 : _a.split("=")[1];
