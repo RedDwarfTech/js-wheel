@@ -7,6 +7,7 @@ import { TimeUtils } from "@utils/time/time";
 import { ResponseCode } from "@net/rest/ResponseCode";
 import { AuthHandler } from "@auth/extension/AuthHandler";
 import { RdColor } from "@utils/graphic/RdColor";
+import { RdFile } from "@utils/file/RdFile";
 
 export {
     ResponseHandler,
@@ -17,6 +18,7 @@ export {
     TimeUtils,
     ResponseCode,
     AuthHandler,
-    RdColor
+    RdColor,
+    RdFile
 }
 

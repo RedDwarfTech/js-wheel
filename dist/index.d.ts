@@ -7,4 +7,5 @@ import { TimeUtils } from "./src/utils/time/time";
 import { ResponseCode } from "./src/net/rest/ResponseCode";
 import { AuthHandler } from "./src/auth/extension/AuthHandler";
 import { RdColor } from "./src/utils/graphic/RdColor";
-export { ResponseHandler, REST, RequestHandler, WheelGlobal, IUserModel, TimeUtils, ResponseCode, AuthHandler, RdColor };
+import { RdFile } from "./src/utils/file/RdFile";
+export { ResponseHandler, REST, RequestHandler, WheelGlobal, IUserModel, TimeUtils, ResponseCode, AuthHandler, RdColor, RdFile };
