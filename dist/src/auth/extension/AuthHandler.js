@@ -38,7 +38,22 @@ import { LoginType } from "../../model/enumn/LoginType";
 import { WheelGlobal } from "../../model/immutable/WheelGlobal";
 import LocalStorage from "../../utils/data/LocalStorage";
 import DeviceHandler from "../../utils/data/DeviceHandler";
+import jwt from "jsonwebtoken";
 export var AuthHandler = {
+    isTokenNeedRefresh: function (seconds) {
+        var accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);
+        var decodedToken = jwt.verify(accessToken, "secret");
+        var exp = decodedToken.exp;
+        var now = Math.floor(Date.now() / 1000);
+        // seconds was the token prereload time gap
+        var isExpired = exp < now + seconds;
+        if (isExpired) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
     storeLoginAuthInfo: function (loginUser, baseAuthUrl, accessTokenUrlPath) {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME, loginUser.accessToken);
