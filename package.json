@@ -1,7 +1,8 @@
 {
-  "name": "js-wheel",
-  "version": "1.0.0",
+  "name": "rdjs-wheel",
+  "version": "0.0.1",
   "description": "",
+  "private": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -20,6 +21,7 @@
     "@types/uuid": "^8.3.4",
     "dayjs": "^1.10.7",
     "esm": "^3.2.25",
+    "jsonwebtoken": "^9.0.0",
     "module-alias": "^2.2.2",
     "npm": "^8.4.1",
     "rollup-plugin-typescript2": "^0.31.2",

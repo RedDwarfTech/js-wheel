@@ -3,9 +3,23 @@ import { WheelGlobal } from "@model/immutable/WheelGlobal";
 import LocalStorage from "@utils/data/LocalStorage";
 import DeviceHandler from "@utils/data/DeviceHandler";
 import { ILoginUserModel } from "@model/user/ILoginUserModel";
+import jwt from "jsonwebtoken";
 
 export const AuthHandler = {
-    storeLoginAuthInfo:(loginUser: ILoginUserModel,baseAuthUrl:string,accessTokenUrlPath:string) =>{
+    isTokenNeedRefresh: (seconds: number) => {
+        const accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);
+        const decodedToken = jwt.verify(accessToken, "secret");
+        const exp = decodedToken.exp;
+        const now = Math.floor(Date.now() / 1000);
+        // seconds was the token prereload time gap
+        const isExpired = exp < now + seconds;
+        if (isExpired) {
+            return true;
+        }else{
+            return false;
+        }
+    },
+    storeLoginAuthInfo: (loginUser: ILoginUserModel, baseAuthUrl: string, accessTokenUrlPath: string) => {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME, loginUser.accessToken);
         localStorage.setItem(WheelGlobal.REFRESH_TOKEN_NAME, loginUser.refreshToken);
@@ -13,7 +27,7 @@ export const AuthHandler = {
         localStorage.setItem(WheelGlobal.BASE_AUTH_URL, baseAuthUrl);
         localStorage.setItem(WheelGlobal.ACCESS_TOKEN_URL_PATH, accessTokenUrlPath);
     },
-    storeCookieAuthInfo: (accessTokenOrigin: string,baseAuthUrl:string,accessTokenUrlPath:string) => {
+    storeCookieAuthInfo: (accessTokenOrigin: string, baseAuthUrl: string, accessTokenUrlPath: string) => {
         const accessTokenCookie = accessTokenOrigin.split("=")[1];
         const refreshTokenCookie = document.cookie.split('; ').find(row => row.startsWith('refreshToken='))?.split("=")[1];
         const avatarUrlCookie = document.cookie.split('; ').find(row => row.startsWith('avatarUrl='))?.split("=")[1];
