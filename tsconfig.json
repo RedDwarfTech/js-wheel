@@ -38,5 +38,5 @@
   "exclude": [
     "dist"
   ],
-  "include": ["src/**/*", "node_modules/ttypescript/**/*"],
+  "include": ["src/**/*", "node_modules/ttypescript/**/*","src/../index.ts"],
 }

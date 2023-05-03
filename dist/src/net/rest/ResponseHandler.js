@@ -34,8 +34,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { ResponseCode } from "@net/rest/ResponseCode";
-import BaseMethods from "@utils/data/BaseMethods";
+import { ResponseCode } from "./ResponseCode";
+import BaseMethods from "../../utils/data/BaseMethods";
 import RequestHandler from "./RequestHandler";
 export var ResponseHandler = {
     responseSuccess: function (response) {

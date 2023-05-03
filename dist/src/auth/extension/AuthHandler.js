@@ -34,10 +34,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { LoginType } from "@model/enumn/LoginType";
-import { WheelGlobal } from "@model/immutable/WheelGlobal";
-import LocalStorage from "@utils/data/LocalStorage";
-import DeviceHandler from "@utils/data/DeviceHandler";
+import { LoginType } from "../../model/enumn/LoginType";
+import { WheelGlobal } from "../../model/immutable/WheelGlobal";
+import LocalStorage from "../../utils/data/LocalStorage";
+import DeviceHandler from "../../utils/data/DeviceHandler";
 export var AuthHandler = {
     isTokenNeedRefresh: function (seconds) {
         var accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);
