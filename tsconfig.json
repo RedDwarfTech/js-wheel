@@ -31,12 +31,12 @@
       // Transform paths in output .js files
       { "transform": "typescript-transform-paths" },
       { "transform": "ts-transformer-keys/transformer" },
-
       // Transform paths in output .d.ts files (Include this line if you output declarations files)
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
     ]                                 
   },
   "exclude": [
     "dist"
-  ]
+  ],
+  "include": ["src/**/*", "node_modules/ttypescript/**/*"],
 }
