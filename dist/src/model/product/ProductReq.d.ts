@@ -1,3 +1,3 @@
-export declare type ProductReq = {
+export type ProductReq = {
     appId: string;
 };

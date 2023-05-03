@@ -1,3 +1,3 @@
 export declare const LoginType: Readonly<{
-    PHONE: number;
+    PHONE: 1;
 }>;

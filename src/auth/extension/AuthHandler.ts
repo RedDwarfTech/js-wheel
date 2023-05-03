@@ -3,13 +3,17 @@ import { WheelGlobal } from "@model/immutable/WheelGlobal";
 import LocalStorage from "@utils/data/LocalStorage";
 import DeviceHandler from "@utils/data/DeviceHandler";
 import { ILoginUserModel } from "@model/user/ILoginUserModel";
-import jwt from "jsonwebtoken";
 
 export const AuthHandler = {
     isTokenNeedRefresh: (seconds: number) => {
         const accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);
-        const decodedToken = jwt.verify(accessToken, "secret");
-        const exp = decodedToken.exp;
+        if(!accessToken){
+            return false;
+        }
+        const base64Payload = accessToken.split('.')[2];
+        const payload = Buffer.from(base64Payload, 'base64');
+        const claim = JSON.parse(payload.toString());
+        const exp = claim.exp;
         const now = Math.floor(Date.now() / 1000);
         // seconds was the token prereload time gap
         const isExpired = exp < now + seconds;

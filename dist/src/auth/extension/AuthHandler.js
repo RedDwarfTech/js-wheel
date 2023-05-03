@@ -13,7 +13,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -34,16 +34,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { LoginType } from "../../model/enumn/LoginType";
-import { WheelGlobal } from "../../model/immutable/WheelGlobal";
-import LocalStorage from "../../utils/data/LocalStorage";
-import DeviceHandler from "../../utils/data/DeviceHandler";
-import jwt from "jsonwebtoken";
+import { LoginType } from "@model/enumn/LoginType";
+import { WheelGlobal } from "@model/immutable/WheelGlobal";
+import LocalStorage from "@utils/data/LocalStorage";
+import DeviceHandler from "@utils/data/DeviceHandler";
 export var AuthHandler = {
     isTokenNeedRefresh: function (seconds) {
         var accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);
-        var decodedToken = jwt.verify(accessToken, "secret");
-        var exp = decodedToken.exp;
+        if (!accessToken) {
+            return false;
+        }
+        var base64Payload = accessToken.split('.')[2];
+        var payload = Buffer.from(base64Payload, 'base64');
+        var claim = JSON.parse(payload.toString());
+        var exp = claim.exp;
         var now = Math.floor(Date.now() / 1000);
         // seconds was the token prereload time gap
         var isExpired = exp < now + seconds;

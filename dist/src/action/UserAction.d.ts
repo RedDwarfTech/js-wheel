@@ -1,4 +1,4 @@
-export declare type userAction = loginByPhoneAction | userLoginAction | getCurrentUserAction;
+export type userAction = loginByPhoneAction | userLoginAction | getCurrentUserAction;
 export declare enum UserActionType {
     LOGIN_BY_PHONE = 0,
     USER_LOGIN = 1,
