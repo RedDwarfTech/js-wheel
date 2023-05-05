@@ -10,9 +10,7 @@ export const AuthHandler = {
         if(!accessToken){
             return false;
         }
-        const base64Payload = accessToken.split('.')[2];
-        const payload = Buffer.from(base64Payload, 'base64');
-        const claim = JSON.parse(payload.toString());
+        const claim = JSON.parse(atob(accessToken.split('.')[1]));
         const exp = claim.exp;
         const now = Math.floor(Date.now() / 1000);
         // seconds was the token prereload time gap

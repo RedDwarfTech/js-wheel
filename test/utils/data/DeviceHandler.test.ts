@@ -19,6 +19,3 @@ describe('Device Test', function () {
      })
 })
 
-describe('Token',function(){
-   console.log("dddd");
-})
