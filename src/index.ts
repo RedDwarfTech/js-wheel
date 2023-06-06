@@ -9,6 +9,7 @@ import { RdColor } from "@/utils/graphic/RdColor";
 import { RdFile } from "@/utils/file/RdFile";
 import type { Pagination } from "./model/rest/response/Pagination";
 import type { EntityList } from "./model/rest/response/EntityList";
+import BaseMethods from "./utils/data/BaseMethods";
 
 export {
     ResponseHandler,
@@ -21,6 +22,7 @@ export {
     RdColor,
     RdFile,
     Pagination,
-    EntityList
+    EntityList,
+    BaseMethods
 }
 
