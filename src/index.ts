@@ -10,6 +10,7 @@ import { RdFile } from "@/utils/file/RdFile";
 import type { Pagination } from "./model/rest/response/Pagination";
 import type { EntityList } from "./model/rest/response/EntityList";
 import BaseMethods from "./utils/data/BaseMethods";
+import type { ApiResponse } from "./model/rest/response/ApiResponse";
 
 export {
     ResponseHandler,
@@ -23,6 +24,7 @@ export {
     RdFile,
     Pagination,
     EntityList,
-    BaseMethods
+    BaseMethods,
+    ApiResponse
 }
 

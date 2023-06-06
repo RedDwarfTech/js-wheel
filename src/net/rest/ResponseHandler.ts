@@ -1,7 +1,7 @@
 import { ResponseCode } from "@/net/rest/ResponseCode";
 import BaseMethods from "@/utils/data/BaseMethods";
 import RequestHandler from "./RequestHandler";
-import { ApiResponse } from "@/model/rest/response/ApiResonse";
+import { ApiResponse } from "@/model/rest/response/ApiResponse";
 import { EntityList } from "@/model/rest/response/EntityList";
 
 export const ResponseHandler = {
