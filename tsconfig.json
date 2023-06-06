@@ -15,7 +15,7 @@
       "esnext"
       ], /* https://stackoverflow.com/questions/43555378/ts-an-async-function-or-method-in-es5-es3-requires-the-promise-constructor */
     "esModuleInterop": true, 
-    "moduleResolution":"node",                            /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
+    "moduleResolution": "bundler",
     // "preserveSymlinks": true,                         /* Disable resolving symlinks to their realpath. This correlates to the same flag in node. */
     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
 
