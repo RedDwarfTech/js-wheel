@@ -163,9 +163,9 @@ export var RequestHandler = {
                         var accessToken = res.result.accessToken;
                         localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME, accessToken);
                         isRefreshing = false;
-                        return Promise.resolve({ access_token: res.access_token });
+                        return Promise.resolve({ res: res });
                     }
-                    return Promise.reject(new Error(res.message));
+                    return Promise.reject(new Error(res));
                 })];
         });
     }); },

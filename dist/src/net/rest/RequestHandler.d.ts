@@ -4,11 +4,11 @@ export declare const RequestHandler: {
     do_api_post: <T_2>(url: string, data: any, accessToken: string) => Promise<T_2>;
     handleRefreshTokenInvalid: () => Promise<void>;
     handleWebAccessTokenExpire: () => Promise<{
-        access_token: string;
+        res: any;
     }>;
     handleAccessTokenExpire: () => Promise<void>;
     refreshWebAccessToken: (data: any) => Promise<{
-        access_token: string;
+        res: any;
     }>;
     refreshAccessToken: (data: any) => Promise<void>;
     refreshRefreshToken: (data: any) => Promise<void>;

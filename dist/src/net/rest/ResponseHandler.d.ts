@@ -3,7 +3,7 @@ export declare const ResponseHandler: {
     responseSuccess: (response: any) => boolean;
     handleCommonFailure: (response: any) => void;
     handleWebCommonFailure: (response: any) => Promise<{
-        access_token: string;
+        res: any;
     } | undefined>;
     mapPageResponse: <T>(response: REST.ApiResponse) => REST.EntityList<T>;
 };
