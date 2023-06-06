@@ -5,9 +5,7 @@ import * as path from 'path';
 const __dirname = path.resolve();
 
 export default {
-  entry : {
-    'index' : './index.ts', 
-  } ,
+  entry: './index.ts',
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     alias: {
