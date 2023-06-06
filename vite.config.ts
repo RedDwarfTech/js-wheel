@@ -14,7 +14,7 @@ export default defineConfig({
             entry: resolve(__dirname, 'src/index.ts'),
             name: 'rdjs-wheel',
             formats: ['es','umd'],
-            fileName: (format) => `rd-component.${format}.js`
+            fileName: (format) => `rdjs-wheel.${format}.js`
         },
         assetsDir: 'src/assets',
         sourcemap: true,
