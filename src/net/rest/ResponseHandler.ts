@@ -1,7 +1,8 @@
-import { REST } from "@model/rest/response/ApiResonse";
-import { ResponseCode } from "@net/rest/ResponseCode";
-import BaseMethods from "@utils/data/BaseMethods";
+import { ResponseCode } from "@/net/rest/ResponseCode";
+import BaseMethods from "@/utils/data/BaseMethods";
 import RequestHandler from "./RequestHandler";
+import { ApiResponse } from "@/model/rest/response/ApiResonse";
+import { EntityList } from "@/model/rest/response/EntityList";
 
 export const ResponseHandler = {
     responseSuccess:(response:any) => {
@@ -23,8 +24,8 @@ export const ResponseHandler = {
             return await RequestHandler.handleWebAccessTokenExpire();
         }
     },
-    mapPageResponse:<T>(response:REST.ApiResponse) : REST.EntityList<T> => {
-        let tableSource: REST.EntityList<T> = {
+    mapPageResponse:<T>(response:ApiResponse) : EntityList<T> => {
+        let tableSource: EntityList<T> = {
             data: response.result.list,
             pagination: {
               total: response.result.pagination.total,

@@ -1,7 +1,7 @@
-import { ResponseCode } from "@net/rest/ResponseCode";
-import { WheelGlobal } from "@model/immutable/WheelGlobal";
-import LocalStorage from "@utils/data/LocalStorage";
-import { AuthHandler } from "@auth/extension/AuthHandler";
+import { ResponseCode } from "@/net/rest/ResponseCode";
+import { WheelGlobal } from "@/model/immutable/WheelGlobal";
+import LocalStorage from "@/utils/data/LocalStorage";
+import { AuthHandler } from "@/auth/extension/AuthHandler";
 import { v4 as uuid } from 'uuid';
 
 // https://juejin.cn/post/6844904014081949710

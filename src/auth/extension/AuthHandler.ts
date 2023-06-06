@@ -1,8 +1,8 @@
-import { LoginType } from "@model/enumn/LoginType";
-import { WheelGlobal } from "@model/immutable/WheelGlobal";
-import LocalStorage from "@utils/data/LocalStorage";
-import DeviceHandler from "@utils/data/DeviceHandler";
-import { ILoginUserModel } from "@model/user/ILoginUserModel";
+import { LoginType } from "@/model/enumn/LoginType";
+import { WheelGlobal } from "@/model/immutable/WheelGlobal";
+import LocalStorage from "@/utils/data/LocalStorage";
+import DeviceHandler from "@/utils/data/DeviceHandler";
+import { ILoginUserModel } from "@/model/user/ILoginUserModel";
 
 export const AuthHandler = {
     isTokenNeedRefresh: (seconds: number) => {
