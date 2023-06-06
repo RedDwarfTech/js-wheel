@@ -55,7 +55,7 @@ export const RequestHandler = {
     handleRefreshTokenInvalid: async () => {
         window.location.href = "/user/login";
     },
-    handleWebAccessTokenExpire: async (): Promise<{ res: any }> => {
+    handleWebAccessTokenExpire: async <T>(): Promise<T> => {
         let refreshToken: any = localStorage.getItem(WheelGlobal.REFRESH_TOKEN_NAME);
         const params = {
             grant_type: "refresh_token",
@@ -71,7 +71,7 @@ export const RequestHandler = {
         };
         RequestHandler.refreshAccessToken(params);
     },
-    refreshWebAccessToken: async (data: any): Promise<{ res: any }> => {
+    refreshWebAccessToken: async <T>(data: any): Promise<T> => {
         const baseAuthUrl = localStorage.getItem(WheelGlobal.BASE_AUTH_URL);
         const accessTokenUrlPath = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_URL_PATH)!;
         const baseUrl = baseAuthUrl + accessTokenUrlPath;
@@ -88,9 +88,9 @@ export const RequestHandler = {
                     const accessToken = res.result.accessToken;
                     localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME, accessToken);
                     isRefreshing = false;
-                    return Promise.resolve({ res });
+                    return Promise.resolve(res);
                 }
-                return Promise.reject(new Error(res));
+                return Promise.reject(res);
             });
     },
     refreshAccessToken: async (data: any) => {
