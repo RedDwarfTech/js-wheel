@@ -11,6 +11,7 @@ import type { Pagination } from "./model/rest/response/Pagination";
 import type { EntityList } from "./model/rest/response/EntityList";
 import BaseMethods from "./utils/data/BaseMethods";
 import type { ApiResponse } from "./model/rest/response/ApiResponse";
+import type { ILoginUserModel } from "./model/user/ILoginUserModel";
 
 export {
     ResponseHandler,
@@ -25,6 +26,7 @@ export {
     Pagination,
     EntityList,
     BaseMethods,
-    ApiResponse
+    ApiResponse,
+    ILoginUserModel
 }
 
