@@ -3,4 +3,5 @@ export type UserBind = {
     thirdUserId: number;
     channelType: number;
     id: number;
+    bindStatus: number;
 };
