@@ -7,7 +7,7 @@ import { ILoginUserModel } from "@/model/user/ILoginUserModel";
 export const AuthHandler = {
     isTokenNeedRefresh: (seconds: number) => {
         const accessToken = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_NAME);
-        if(!accessToken){
+        if (!accessToken) {
             return false;
         }
         const claim = JSON.parse(atob(accessToken.split('.')[1]));
@@ -17,7 +17,7 @@ export const AuthHandler = {
         const isExpired = exp < now + seconds;
         if (isExpired) {
             return true;
-        }else{
+        } else {
             return false;
         }
     },
@@ -25,7 +25,7 @@ export const AuthHandler = {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME, loginUser.accessToken);
         localStorage.setItem(WheelGlobal.REFRESH_TOKEN_NAME, loginUser.refreshToken);
-        localStorage.setItem('avatarUrl', loginUser.avatarUrl);
+        localStorage.setItem('avatarUrl', loginUser.avatarUrl ? loginUser.avatarUrl : "");
         localStorage.setItem(WheelGlobal.BASE_AUTH_URL, baseAuthUrl);
         localStorage.setItem(WheelGlobal.ACCESS_TOKEN_URL_PATH, accessTokenUrlPath);
     },
