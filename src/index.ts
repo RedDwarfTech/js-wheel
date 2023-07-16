@@ -9,7 +9,7 @@ import { RdColor } from "@/utils/graphic/RdColor";
 import { RdFile } from "@/utils/file/RdFile";
 import type { Pagination } from "./model/rest/response/Pagination";
 import type { EntityList } from "./model/rest/response/EntityList";
-import BaseMethods from "./utils/data/BaseMethods";
+import { BaseMethods } from "@/utils/data/BaseMethods";
 import type { ApiResponse } from "./model/rest/response/ApiResponse";
 import type { ILoginUserModel } from "./model/user/ILoginUserModel";
 

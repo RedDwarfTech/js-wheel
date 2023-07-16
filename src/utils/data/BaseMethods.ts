@@ -1,4 +1,4 @@
-const BaseMethods = {
+export const BaseMethods = {
     /**
      * 获取数据类型
      * @param params 
