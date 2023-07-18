@@ -12,6 +12,7 @@ import type { EntityList } from "./model/rest/response/EntityList";
 import { BaseMethods } from "@/utils/data/BaseMethods";
 import type { ApiResponse } from "./model/rest/response/ApiResponse";
 import type { ILoginUserModel } from "./model/user/ILoginUserModel";
+import { Claims } from "./model/rest/oauth/Claims";
 
 export {
     ResponseHandler,
@@ -27,6 +28,7 @@ export {
     EntityList,
     BaseMethods,
     ApiResponse,
-    ILoginUserModel
+    ILoginUserModel,
+    Claims
 }
 
