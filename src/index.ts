@@ -13,7 +13,7 @@ import { BaseMethods } from "@/utils/data/BaseMethods";
 import type { ApiResponse } from "./model/rest/response/ApiResponse";
 import type { ILoginUserModel } from "./model/user/ILoginUserModel";
 import type { Claims } from "./model/rest/oauth/Claims";
-import { SSEMessage } from "./model/rest/sse/SSEMessage";
+import type { SSEMessage } from "./model/rest/sse/SSEMessage";
 
 export {
     ResponseHandler,
