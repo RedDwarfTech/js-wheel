@@ -40,7 +40,8 @@ export const RequestHandler = {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
-                'x-access-token': accessToken,
+                // https://self-issued.info/docs/draft-ietf-oauth-v2-bearer.html#query-param
+                'Authorization': 'Bearer ' + accessToken,
                 'x-request-id': uuid()
             },
             body: JSON.stringify(data),
