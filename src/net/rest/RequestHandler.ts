@@ -123,37 +123,6 @@ export const RequestHandler = {
                 }
             });
     },
-    refreshRefreshToken: async (data: any) => {
-        const baseAuthUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
-        const refreshTokenUrlPath = await localStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_URL_PATH);
-        const baseUrl = baseAuthUrl + refreshTokenUrlPath;
-        fetch(baseUrl, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
-                    AuthHandler.pluginLogin();
-                }
-                if (res && res.resultCode === '200') {
-                    const accessToken = res.result.accessToken;
-                    const refreshToken = res.result.refreshToken;
-                    chrome.storage.local.set(
-                        {
-                            [WheelGlobal.ACCESS_TOKEN_NAME]: accessToken,
-                            [WheelGlobal.REFRESH_TOKEN_NAME]: refreshToken,
-                        },
-                        function () {
-                            isRefreshing = false;
-                        }
-                    );
-                }
-            });
-    }
 }
 
 export default RequestHandler
