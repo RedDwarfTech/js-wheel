@@ -34,6 +34,17 @@ export const ResponseHandler = {
             }
         };
         return tableSource;
+    },
+    mapUnwrapPage:<T>(response: any) : EntityList<T> => {
+        let tableSource: EntityList<T> = {
+            data: response.list,
+            pagination: {
+              total: response.pagination.total,
+              per_page: response.pagination.pageSize,
+              page: response.result.pagination.pageNum
+            }
+        };
+        return tableSource;
     }
 }
 
