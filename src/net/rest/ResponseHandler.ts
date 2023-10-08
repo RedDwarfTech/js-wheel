@@ -41,7 +41,7 @@ export const ResponseHandler = {
             pagination: {
               total: response.pagination.total,
               per_page: response.pagination.pageSize,
-              page: response.result.pagination.pageNum
+              page: response.pagination.pageNum
             }
         };
         return tableSource;
