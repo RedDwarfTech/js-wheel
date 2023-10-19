@@ -58,6 +58,10 @@ export const BaseMethods = {
             counter += 1;
         }
         return randomStr;
+    },
+    joinUrl: (...paths: string[]): string => {
+        const normalizedPaths = paths.map(path => path.replace(/^\/|\/$/g, ''));
+        return normalizedPaths.join('/');
     }
 }
 
