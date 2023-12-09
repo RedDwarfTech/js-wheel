@@ -20,6 +20,7 @@
     "@types/uuid": "^8.3.4",
     "dayjs": "^1.10.7",
     "esm": "^3.2.25",
+    "jwt-decode": "^4.0.0",
     "module-alias": "^2.2.2",
     "npm": "^8.4.1",
     "rollup-plugin-typescript2": "^0.31.2",

@@ -2,8 +2,21 @@ import { LoginType } from "@model/enumn/LoginType";
 import { WheelGlobal } from "@model/immutable/WheelGlobal";
 import LocalStorage from "@utils/data/LocalStorage";
 import DeviceHandler from "@utils/data/DeviceHandler";
+import { jwtDecode } from "jwt-decode";
 
 export const AuthHandler = {
+    isTokenExpire: (token: string) => {
+        try {
+            const decodedToken = jwtDecode(token) as { [key: string]: any };
+            if (decodedToken && decodedToken.exp) {
+              const expirationTime = decodedToken.exp * 1000;
+              return Date.now() > expirationTime;
+            }
+        } catch (error) {
+        console.error('Error decoding token:', error);
+        }
+        return false;
+    },
     pluginLogin: async () => {
         let username: string = await LocalStorage.readLocalStorage(WheelGlobal.USER_NAME);
         let password: string = await LocalStorage.readLocalStorage(WheelGlobal.PASSWORD);
