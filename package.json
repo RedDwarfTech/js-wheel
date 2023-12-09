@@ -34,19 +34,14 @@
     "@babel/preset-env": "^7.22.9",
     "@babel/preset-typescript": "^7.22.5",
     "@types/chrome": "^0.0.178",
-<<<<<<< HEAD
-    "@types/uuid": "^8.3.4",
-    "dayjs": "^1.10.7",
     "esm": "^3.2.25",
     "jwt-decode": "^4.0.0",
     "module-alias": "^2.2.2",
     "npm": "^8.4.1",
     "rollup-plugin-typescript2": "^0.31.2",
     "ts-loader": "^9.2.6",
-    "ts-transformer-keys": "^0.4.3",
     "tsc-alias": "^1.6.0",
     "ttypescript": "^1.5.13",
-=======
     "@types/react": "^18.2.15",
     "@types/redux-logger": "^3.0.9",
     "@types/uuid": "^9.0.2",
@@ -58,7 +53,6 @@
     "storybook": "^7.1.0",
     "ts-jest": "^29.1.1",
     "ts-transformer-keys": "^0.4.4",
->>>>>>> 59a52417fafd7e9bfa46dde64241df9b15112546
     "uuid": "^8.3.2",
     "vite-plugin-dts": "^2.3.0"
   },
