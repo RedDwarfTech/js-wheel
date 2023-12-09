@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-import { LoginType } from "@model/enumn/LoginType";
-import { WheelGlobal } from "@model/immutable/WheelGlobal";
-import LocalStorage from "@utils/data/LocalStorage";
-import DeviceHandler from "@utils/data/DeviceHandler";
-import { jwtDecode } from "jwt-decode";
-
-export const AuthHandler = {
-    isTokenExpire: (token: string) => {
-        try {
-            const decodedToken = jwtDecode(token) as { [key: string]: any };
-            if (decodedToken && decodedToken.exp) {
-              const expirationTime = decodedToken.exp * 1000;
-              return Date.now() > expirationTime;
-            }
-        } catch (error) {
-        console.error('Error decoding token:', error);
-        }
-        return false;
-=======
 import { LoginType } from "@/model/enumn/LoginType";
 import { WheelGlobal } from "@/model/immutable/WheelGlobal";
 import LocalStorage from "@/utils/data/LocalStorage";
@@ -59,7 +39,6 @@ export const AuthHandler = {
         localStorage.setItem('avatarUrl', avatarUrlCookie ? avatarUrlCookie : "");
         localStorage.setItem(WheelGlobal.BASE_AUTH_URL, baseAuthUrl);
         localStorage.setItem(WheelGlobal.ACCESS_TOKEN_URL_PATH, accessTokenUrlPath);
->>>>>>> 59a52417fafd7e9bfa46dde64241df9b15112546
     },
     pluginLogin: async () => {
         let username: string = await LocalStorage.readLocalStorage(WheelGlobal.USER_NAME);
