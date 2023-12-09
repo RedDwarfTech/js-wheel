@@ -19,4 +19,3 @@ describe('Device Test', function () {
      })
 })
 
-

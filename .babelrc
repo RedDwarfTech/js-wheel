@@ -1,5 +1,11 @@
 {
-    "presets": [
-      ["@babel/preset-env"]
+  "presets": [
+    [
+      "@babel/preset-env"
     ]
-  }
+  ],
+  // https://stackoverflow.com/questions/28976748/regeneratorruntime-is-not-defined
+  "plugins": [
+    "@babel/plugin-transform-runtime"
+  ]
+}

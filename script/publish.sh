@@ -1,0 +1,1 @@
+npm run tscbuild && npm pack && npm publish --registry=https://registry.npmjs.org/

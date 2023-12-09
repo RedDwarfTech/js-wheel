@@ -3,6 +3,7 @@ export class WheelGlobal{
     public static readonly MOUSE_CLICK: any = "click";
     public static readonly ACCESS_TOKEN_NAME: string = "x-access-token";
     public static readonly REFRESH_TOKEN_NAME: string = "x-refresh-token";
+    public static readonly REQUEST_ID_NAME: string = "x-request-id";
     public static readonly REDDWARF_APP_ID_KEY: string = "app-id";
     public static readonly REDDWARF_PRODUCT_ID_KEY: string = "product-id";
     public static readonly USER_NAME: string = "username";

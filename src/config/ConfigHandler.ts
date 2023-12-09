@@ -1,9 +1,9 @@
-import { ConfigBase } from "@model/immutable/ConfigBase";
-import LocalStorage from "@utils/data/LocalStorage";
-import BaseMethods from "@utils/data/BaseMethods";
+import { ConfigBase } from "@/model/immutable/ConfigBase";
+import LocalStorage from "@/utils/data/LocalStorage";
+import BaseMethods from "@/utils/data/BaseMethods";
 // https://stackoverflow.com/questions/71191283/cannot-find-module-ts-transformer-keys-did-you-mean-to-set-the-moduleresolut
 import { keys } from "ts-transformer-keys";
-import { WheelGlobal } from "@model/immutable/WheelGlobal";
+import { WheelGlobal } from "@/model/immutable/WheelGlobal";
 
 export const ConfigHandler = {
     init: async (config: ConfigBase) => {

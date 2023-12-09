@@ -1,12 +1,8 @@
-import { ResponseCode } from "@net/rest/ResponseCode";
-import BaseMethods from "@utils/data/BaseMethods";
-import { WheelGlobal } from "@model/immutable/WheelGlobal";
-import LocalStorage from "@utils/data/LocalStorage";
-import { AuthHandler } from "@auth/extension/AuthHandler";
-import DeviceHandler from "@utils/data/DeviceHandler";
+import { ResponseCode } from "@/net/rest/ResponseCode";
+import { WheelGlobal } from "@/model/immutable/WheelGlobal";
+import LocalStorage from "@/utils/data/LocalStorage";
+import { AuthHandler } from "@/auth/extension/AuthHandler";
 import { v4 as uuid } from 'uuid';
-import { ResponseHandler } from "@net/rest/ResponseHandler";
-
 
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
@@ -44,7 +40,8 @@ export const RequestHandler = {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
-                'x-access-token': accessToken,
+                // https://self-issued.info/docs/draft-ietf-oauth-v2-bearer.html#query-param
+                'Authorization': 'Bearer ' + accessToken,
                 'x-request-id': uuid()
             },
             body: JSON.stringify(data),
@@ -57,10 +54,15 @@ export const RequestHandler = {
             })
     },
     handleRefreshTokenInvalid: async () => {
-       let loginRes = await AuthHandler.pluginLogin();
-       if(ResponseHandler.responseSuccess(loginRes)) {
-            isRefreshing = false;
-       }
+        window.location.href = "/user/login";
+    },
+    handleWebAccessTokenExpire: async <T>(): Promise<T> => {
+        let refreshToken: any = localStorage.getItem(WheelGlobal.REFRESH_TOKEN_NAME);
+        const params = {
+            grant_type: "refresh_token",
+            refresh_token: refreshToken,
+        };
+        return await RequestHandler.refreshWebAccessToken(params);
     },
     handleAccessTokenExpire: async () => {
         let refreshToken: any = await LocalStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_NAME);
@@ -69,6 +71,28 @@ export const RequestHandler = {
             refresh_token: refreshToken,
         };
         RequestHandler.refreshAccessToken(params);
+    },
+    refreshWebAccessToken: async <T>(data: any): Promise<T> => {
+        const baseAuthUrl = localStorage.getItem(WheelGlobal.BASE_AUTH_URL);
+        const accessTokenUrlPath = localStorage.getItem(WheelGlobal.ACCESS_TOKEN_URL_PATH)!;
+        const baseUrl = baseAuthUrl + accessTokenUrlPath;
+        return fetch(baseUrl, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res && res.resultCode === '200') {
+                    const accessToken = res.result.accessToken;
+                    localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME, accessToken);
+                    isRefreshing = false;
+                    return Promise.resolve(res);
+                }
+                return Promise.reject(res);
+            });
     },
     refreshAccessToken: async (data: any) => {
         const baseAuthUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
@@ -83,7 +107,6 @@ export const RequestHandler = {
         })
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
                 if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_EXPIRED || res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID) {
                     RequestHandler.handleRefreshTokenInvalid();
                 }
@@ -100,40 +123,6 @@ export const RequestHandler = {
                 }
             });
     },
-    handleRefreshTokenExpire: (data: any) => {
-        AuthHandler.pluginLogin();
-    },
-    refreshRefreshToken: async (data: any) => {
-        const baseAuthUrl = await LocalStorage.readLocalStorage(WheelGlobal.BASE_AUTH_URL);
-        const refreshTokenUrlPath = await localStorage.readLocalStorage(WheelGlobal.REFRESH_TOKEN_URL_PATH);
-        const baseUrl = baseAuthUrl + refreshTokenUrlPath;
-        fetch(baseUrl, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                if (res && res.resultCode === ResponseCode.REFRESH_TOKEN_INVALID){
-                    AuthHandler.pluginLogin();
-                }
-                if (res && res.resultCode === '200') {
-                    const accessToken = res.result.accessToken;
-                    const refreshToken = res.result.refreshToken;
-                    chrome.storage.local.set(
-                        {
-                            [WheelGlobal.ACCESS_TOKEN_NAME]: accessToken,
-                            [WheelGlobal.REFRESH_TOKEN_NAME]: refreshToken,
-                        },
-                        function () {
-                            isRefreshing = false;
-                        }
-                    );
-                }
-            });
-    }
 }
 
 export default RequestHandler

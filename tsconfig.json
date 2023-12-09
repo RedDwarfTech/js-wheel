@@ -9,9 +9,13 @@
     /* Emit */
     "declaration": true,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
     "outDir": "./dist", 
-    "lib": [ "DOM","ES2015" ], /* https://stackoverflow.com/questions/43555378/ts-an-async-function-or-method-in-es5-es3-requires-the-promise-constructor */
+    "lib": [ 
+      "dom",
+      "dom.iterable",
+      "esnext"
+      ], /* https://stackoverflow.com/questions/43555378/ts-an-async-function-or-method-in-es5-es3-requires-the-promise-constructor */
     "esModuleInterop": true, 
-    "moduleResolution":"node",                            /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
+    "moduleResolution": "bundler",
     // "preserveSymlinks": true,                         /* Disable resolving symlinks to their realpath. This correlates to the same flag in node. */
     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
 
@@ -19,24 +23,23 @@
     "strict": true,                                      /* Enable all strict type-checking options. */
     "skipLibCheck": true,
     "noImplicitAny": false,
-    "baseUrl": "src",
+    "baseUrl": "./",
     "paths": {
-      "@net/*":["net/*"],
-      "@auth/*":["auth/*"],
-      "@utils/*":["utils/*"],
-      "@model/*":["model/*"],
+      "@/*": [
+        "src/*",
+      ],
     },
     // Note: To transform paths for both the output .js and .d.ts files, you need both of the below entries
     "plugins": [
       // Transform paths in output .js files
       { "transform": "typescript-transform-paths" },
       { "transform": "ts-transformer-keys/transformer" },
-
       // Transform paths in output .d.ts files (Include this line if you output declarations files)
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
     ]                                 
   },
   "exclude": [
     "dist"
-  ]
+  ],
+  "include": ["src/**/*", "node_modules/ttypescript/**/*","src/index.ts"],
 }
