@@ -1,5 +1,10 @@
 
 const LocalStorage = {
+  set: async (key: string, value: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      window.localStorage.setItem(key,value);
+    });
+  },
   readLocalStorage: async (key: string): Promise<string> => {
     // https://stackoverflow.com/questions/59440008/how-to-wait-for-asynchronous-chrome-storage-local-get-to-finish-before-continu
     return new Promise((resolve, reject) => {
