@@ -3,6 +3,7 @@ import { WheelGlobal } from "@/model/immutable/WheelGlobal";
 import LocalStorage from "@/utils/data/LocalStorage";
 import { AuthHandler } from "@/auth/extension/AuthHandler";
 import { v4 as uuid } from 'uuid';
+import ResponseHandler from "./ResponseHandler";
 
 // https://juejin.cn/post/6844904014081949710
 var isRefreshing = false;
@@ -85,11 +86,13 @@ export const RequestHandler = {
         })
             .then((res) => res.json())
             .then((res) => {
-                if (res && res.resultCode === '200') {
+                if (ResponseHandler.responseSuccess(res)) {
                     const accessToken = res.result.accessToken;
                     localStorage.setItem(WheelGlobal.ACCESS_TOKEN_NAME, accessToken);
                     isRefreshing = false;
                     return Promise.resolve(res);
+                }else{
+                    window.location.href = "/user/login";
                 }
                 return Promise.reject(res);
             });
