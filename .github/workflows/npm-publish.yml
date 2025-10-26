@@ -12,10 +12,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18
       - name: Build App
         run: |
           git config --global url."https://github".insteadOf ssh://git@github
@@ -24,7 +24,7 @@ jobs:
           pnpm run build
         env:
           CI: false
-      - uses: JS-DevTools/npm-publish@v2
+      - uses: JS-DevTools/npm-publish@v3
         with:
-          token: ${{ secrets.RDJS_NPM_TOKEN }}
+          token: ${{ secrets.NPM_TOKEN }}
 

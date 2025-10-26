@@ -29,8 +29,8 @@ export const ResponseHandler = {
             data: response.result.list,
             pagination: {
               total: response.result.pagination.total,
-              per_page: response.result.pagination.pageSize,
-              page: response.result.pagination.pageNum
+              pageSize: response.result.pagination.pageSize,
+              pageNum: response.result.pagination.pageNum
             }
         };
         return tableSource;
@@ -40,8 +40,8 @@ export const ResponseHandler = {
             data: response.list,
             pagination: {
               total: response.pagination.total,
-              per_page: response.pagination.pageSize,
-              page: response.pagination.pageNum
+              pageSize: response.pagination.pageSize,
+              pageNum: response.pagination.pageNum
             }
         };
         return tableSource;
