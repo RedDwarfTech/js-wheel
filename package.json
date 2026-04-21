@@ -1,6 +1,6 @@
 {
   "name": "rdjs-wheel",
-  "version": "0.0.33",
+  "version": "0.0.34",
   "description": "",
   "private": false,
   "type": "module",
@@ -46,7 +46,7 @@
     "npm": "^8.19.4",
     "query-string": "^8.2.0",
     "rollup-plugin-typescript2": "^0.31.2",
-    "storybook": "^7.6.20",
+    "storybook": "^10.3.5",
     "ts-loader": "^9.5.4",
     "ts-transformer-keys": "^0.4.4",
     "tsc-alias": "^1.8.16",
