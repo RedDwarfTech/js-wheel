@@ -6,13 +6,26 @@ const LocalStorage = {
     });
   },
   readLocalStorage: async (key: string): Promise<string> => {
-    // https://stackoverflow.com/questions/59440008/how-to-wait-for-asynchronous-chrome-storage-local-get-to-finish-before-continu
+    if (typeof chrome === 'undefined' || !chrome?.storage?.local) {
+      const value = localStorage.getItem(key);
+      return value ?? "";
+    }
+    
     return new Promise((resolve, reject) => {
-      chrome.storage.local.get([key], function (result) {
-        if (result[key] === undefined) {
+      chrome.storage.local.get([key], (result: any) => {
+        if (chrome.runtime.lastError) {
+          reject(new Error(chrome.runtime.lastError.message));
+          return;
+        }
+        const value = result[key];
+        if (value === undefined || value === null) {
           resolve("");
+        } else if (typeof value === 'string') {
+          resolve(value);
+        } else if (typeof value === 'object') {
+          resolve(JSON.stringify(value));
         } else {
-          resolve(result[key]);
+          resolve(String(value));
         }
       });
     });
