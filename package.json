@@ -96,5 +96,8 @@
       "tsconfig-paths/register"
     ],
     "ui": "bdd"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["canvas", "esbuild", "core-js"]
   }
 }
