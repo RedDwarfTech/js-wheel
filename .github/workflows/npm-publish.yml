@@ -25,7 +25,10 @@ jobs:
         run: pnpm install --no-frozen-lockfile
         env:
           CI: false
-      
+      # 关键步骤：批准需要构建脚本的依赖包
+      - name: Approve builds
+        run: pnpm approve-builds canvas core-js esbuild
+
       - name: Build
         run: pnpm run build
       
