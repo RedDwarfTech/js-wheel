@@ -20,6 +20,7 @@ jobs:
         run: |
           git config --global url."https://github".insteadOf ssh://git@github
           npm install -g pnpm 
+          pnpm approve-builds --all
           pnpm install
           pnpm run build
         env:
